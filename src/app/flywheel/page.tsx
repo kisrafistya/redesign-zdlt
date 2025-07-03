@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { motion, useTime, useTransform } from 'framer-motion'
 import { ArrowRight, Zap, TrendingUp, Users, Coins, Activity } from 'lucide-react'
 import Link from 'next/link'
@@ -112,17 +113,19 @@ export default function Flywheel() {
       <nav className="fixed top-0 w-full z-50 bg-black/95 backdrop-blur-sm border-b border-slate-800/30">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4">
               <img src="/zirodelta-logo.png" alt="ZiroDelta" className="w-10 h-10" />
               <span className="text-2xl font-light tracking-wide">ZiroDelta</span>
-            </Link>
+            </div>
             
-            <div className="hidden md:flex items-center space-x-12 text-sm">
-              <Link href="/manifesto" className="text-slate-400 hover:text-teal-400 transition-colors duration-300">Manifesto</Link>
-              <Link href="/protocol" className="text-slate-400 hover:text-teal-400 transition-colors duration-300">Protocol</Link>
-              <Link href="/bot" className="text-slate-400 hover:text-teal-400 transition-colors duration-300">Bot</Link>
-              <Link href="/staking" className="text-slate-400 hover:text-teal-400 transition-colors duration-300">Staking</Link>
+            <div className="hidden md:flex items-center space-x-8 text-sm">
+              <a href="/manifesto" className="text-slate-400 hover:text-teal-400 transition-colors duration-300">Manifesto</a>
               <span className="text-teal-400 font-medium">Flywheel</span>
+              <Button asChild variant="ghost" className="bg-teal-400/10 hover:bg-teal-400/20 text-teal-400 border border-teal-400/30 transition-all duration-300 px-4 py-2 text-sm">
+                <Link href="/staking">
+                  Staking
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
