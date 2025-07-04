@@ -121,6 +121,7 @@ export default function Flywheel() {
             <div className="hidden md:flex items-center space-x-8 text-sm">
               <a href="/manifesto" className="text-slate-400 hover:text-teal-400 transition-colors duration-300">Manifesto</a>
               <span className="text-teal-400 font-medium">Flywheel</span>
+              <a href="/roadmap" className="text-slate-400 hover:text-teal-400 transition-colors duration-300">Roadmap</a>
               <Button asChild variant="ghost" className="bg-teal-400/10 hover:bg-teal-400/20 text-teal-400 border border-teal-400/30 transition-all duration-300 px-4 py-2 text-sm">
                 <Link href="/staking">
                   Staking
