@@ -9,12 +9,12 @@ export default function ManifestoPage() {
   return (
     <main className="min-h-screen bg-black text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-sm">
+      <nav className="fixed top-0 w-full z-50 bg-black/95 backdrop-blur-sm border-b border-slate-800/30">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-4">
               <img src="/zirodelta-logo.png" alt="ZiroDelta" className="w-10 h-10" />
-              <span className="text-2xl font-extralight tracking-wide">ZiroDelta</span>
+              <span className="text-2xl font-light tracking-wide">ZiroDelta</span>
             </Link>
             
             <Button asChild variant="ghost" className="text-slate-400 hover:text-teal-400 transition-colors duration-300">
@@ -27,169 +27,153 @@ export default function ManifestoPage() {
         </div>
       </nav>
 
-      {/* Manuscript */}
-      <article className="pt-24 pb-20">
-        <div className="max-w-3xl mx-auto px-6">
+      {/* Content */}
+      <article className="pt-32 pb-20">
+        <div className="max-w-4xl mx-auto px-6">
           
-          <motion.div 
-            className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-lg p-12 shadow-2xl"
+          {/* Title */}
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
+            className="text-center mb-20"
           >
-            {/* Header */}
-            <header className="text-center mb-12">
-              <div className="w-24 h-px bg-teal-400 mx-auto mb-6" />
-              <h1 className="text-4xl md:text-5xl font-extralight tracking-wide mb-4">
-                MANIFESTO
-              </h1>
-              <p className="text-lg text-teal-400 font-light tracking-wider">
-                ZiroDelta Economics
+            <div className="mb-8">
+              <span className="inline-block px-4 py-2 bg-teal-400/10 border border-teal-400/20 rounded-full text-teal-400 text-sm font-light tracking-wide">
+                The ZiroDelta Manifesto
+              </span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-extralight mb-6 leading-tight">
+              <span className="block">We Want To</span>
+              <span className="block text-teal-400">Break DeFi</span>
+            </h1>
+            <p className="text-xl text-slate-400 font-light italic">
+              "And we're going to do it"
+            </p>
+          </motion.div>
+
+          {/* Main Content */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="space-y-16 max-w-3xl mx-auto"
+          >
+            
+            <div className="text-center">
+              <p className="text-xl font-light text-slate-300">
+                Yep, you heard that right.
               </p>
-              <div className="w-24 h-px bg-teal-400 mx-auto mt-6" />
-            </header>
+            </div>
 
-            {/* Core Thesis */}
-            <motion.section 
-              className="mb-10"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <blockquote className="text-center text-2xl md:text-3xl font-light text-teal-400 mb-8 italic">
-                "Scarcity Creates Sustainable Value"
-              </blockquote>
+            <div className="space-y-6">
+              <p className="text-xl font-light text-white">
+                DeFi is broken. Worthless tokens. Infinite supply. Zero exclusivity.
+              </p>
+              <p className="text-lg text-slate-400 font-light">
+                Everyone gets access to everything, so nothing has value.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <p className="text-lg text-slate-300 font-light">
+                We built ZiroDelta so you never have to settle for mediocrity again.
+              </p>
+              <p className="text-lg text-slate-400 font-light">
+                We see your portfolio. We know your pain.
+              </p>
+              <p className="text-lg text-slate-300 font-light">
+                We're giving you the unfair advantage.
+              </p>
+              <p className="text-xl font-light text-teal-400">
+                While others lose money — you'll already be winning.
+              </p>
+            </div>
+
+            <div className="w-24 h-px bg-teal-400/50 mx-auto" />
+
+            <div className="space-y-8">
+              <p className="text-xl font-light text-white">
+                And yes, the world will call it "cheating."
+              </p>
               
-              <div className="space-y-4 text-lg font-light leading-relaxed text-slate-300">
-                <p>We reject the broken economics of infinite access and worthless tokens. We build an economy where scarcity drives value, community shares profits, and innovation thrives through constraint.</p>
-                
-                <p>ZiroDelta operates on two revolutionary principles:</p>
-                
-                <div className="pl-6 space-y-2">
-                  <p><span className="text-teal-400">•</span> <strong>Exclusive Trading Bot:</strong> Only 5 monthly slots. Premium pricing. Shared revenue.</p>
-                  <p><span className="text-teal-400">•</span> <strong>Open Protocol:</strong> Conditional funding rate tokens (PFRT/NFRT) democratize DeFi access.</p>
-                </div>
+              <div className="space-y-4 text-lg font-light text-slate-400">
+                <p>But so was the internet.</p>
+                <p>So was Bitcoin.</p>
+                <p>So was every revolution that mattered.</p>
               </div>
-            </motion.section>
-
-            {/* The Model */}
-            <motion.section 
-              className="mb-10"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <h2 className="text-xl font-light text-teal-400 mb-4 tracking-wide">THE ECONOMIC MODEL</h2>
               
-              <div className="space-y-4 text-base font-light leading-relaxed text-slate-300">
-                <p>Our flywheel is simple but powerful:</p>
-                
-                <div className="bg-slate-800/50 rounded-lg p-6 text-center">
-                  <div className="flex items-center justify-center space-x-3 text-sm">
-                    <span className="text-teal-400">SCARCITY</span>
-                    <span>→</span>
-                    <span>PREMIUM</span>
-                    <span>→</span>
-                    <span>STAKING REWARDS</span>
-                    <span>→</span>
-                    <span className="text-teal-400">ZDLT DEMAND</span>
-                    <span>→</span>
-                    <span>∞</span>
-                  </div>
-                </div>
-                
-                <p>Every revenue stream flows to stakers. Every bot success increases token value. Every protocol innovation creates new opportunities.</p>
+              <div className="space-y-4 text-slate-300 font-light">
+                <p>Every time someone builds something scarce, the masses cry "unfair."</p>
+                <p>Then they adapt. Then they copy.</p>
+                <p>And suddenly, it's the new standard.</p>
               </div>
-            </motion.section>
-
-            {/* Core Principles */}
-            <motion.section 
-              className="mb-10"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.9 }}
-            >
-              <h2 className="text-xl font-light text-teal-400 mb-4 tracking-wide">CORE PRINCIPLES</h2>
               
-              <div className="space-y-3 text-base font-light leading-relaxed text-slate-300">
-                <div className="flex items-start space-x-3">
-                  <span className="text-teal-400 mt-1">1.</span>
-                  <div>
-                    <strong>Intelligent Scarcity:</strong> Limited access creates genuine value for everyone.
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <span className="text-teal-400 mt-1">2.</span>
-                  <div>
-                    <strong>Community Ownership:</strong> All revenue flows transparently to token holders.
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <span className="text-teal-400 mt-1">3.</span>
-                  <div>
-                    <strong>Protocol Innovation:</strong> PFRT/NFRT tokens democratize funding rate strategies.
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <span className="text-teal-400 mt-1">4.</span>
-                  <div>
-                    <strong>Sustainable Tokenomics:</strong> Multiple revenue streams, deflationary mechanisms.
-                  </div>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <span className="text-teal-400 mt-1">5.</span>
-                  <div>
-                    <strong>Multiverse Finance:</strong> Two parallel financial realities, balanced outcomes.
-                  </div>
-                </div>
+              <p className="text-xl font-light text-teal-400">
+                But this is different.
+              </p>
+            </div>
+
+            <div className="w-24 h-px bg-teal-400/50 mx-auto" />
+
+            <div className="space-y-8">
+              <p className="text-xl font-light text-white">
+                DeFi isn't just another casino —
+                <br />
+                It will redefine how money works.
+              </p>
+              
+              <p className="text-lg text-slate-300 font-light">
+                Why should you compete with millions for scraps
+                <br />
+                when you can be <span className="text-teal-400 font-medium">one of 5</span> who own the entire feast?
+              </p>
+              
+              <p className="text-slate-400 font-light">
+                The best traders, the smartest money, the biggest winners —
+                <br />
+                are now the ones who know how to get <span className="text-white font-medium">exclusive access.</span>
+              </p>
+            </div>
+
+            <div className="w-24 h-px bg-teal-400/50 mx-auto" />
+
+            <div className="space-y-8 text-center">
+              <p className="text-xl font-light text-white">
+                The future won't reward effort. It'll reward leverage.
+              </p>
+              
+              <div className="space-y-4">
+                <p className="text-2xl font-light text-teal-400">
+                  So, start cheating.
+                </p>
+                <p className="text-lg text-slate-400 font-light">
+                  Because when scarcity wins, no one loses.
+                </p>
               </div>
-            </motion.section>
+            </div>
 
-            {/* The Revolution */}
-            <motion.section 
-              className="mb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
-            >
-              <h2 className="text-xl font-light text-teal-400 mb-8 text-center tracking-wide">THE REVOLUTION</h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-8 text-center font-light">
+            <div className="space-y-8 text-center pt-8">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" className="bg-teal-400 hover:bg-teal-500 text-black font-medium px-8 py-4 text-lg transition-all duration-300">
+                  <Link href="/bot/auction">
+                    Join Elite Access
+                  </Link>
+                </Button>
                 
-                <div className="space-y-3 border-t-2 border-slate-800 pt-5">
-                  <p className="text-base text-slate-400 line-through">Infinite Access</p>
-                  <p className="text-lg text-teal-400 font-normal">Intelligent Scarcity</p>
-                </div>
-                
-                <div className="space-y-3 border-t-2 border-slate-800 pt-5">
-                  <p className="text-base text-slate-400 line-through">Worthless Tokens</p>
-                  <p className="text-lg text-teal-400 font-normal">Revenue-Sharing</p>
-                </div>
-                
-                <div className="space-y-3 border-t-2 border-slate-800 pt-5">
-                  <p className="text-base text-slate-400 line-through">Simple Yield Farming</p>
-                  <p className="text-lg text-teal-400 font-normal">Conditional Tokens</p>
-                </div>
-
-              </div>
-            </motion.section>
-
-            {/* Final Statement */}
-            <motion.footer 
-              className="text-center border-t border-slate-700 pt-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.5 }}
-            >
-              
-              <div className="mt-8">
-                <Button asChild size="lg" className="bg-teal-400 hover:bg-teal-500 text-black font-light px-8 py-3 tracking-wide transition-all duration-300">
-                  <Link href="/">
-                    JOIN THE REVOLUTION
+                <Button asChild size="lg" variant="outline" className="bg-transparent border-teal-400/50 text-teal-400 hover:bg-teal-400/10 hover:border-teal-400 px-8 py-4 text-lg transition-all duration-300">
+                  <Link href="/staking">
+                    Stake ZDLT
                   </Link>
                 </Button>
               </div>
-            </motion.footer>
+
+              <div className="flex justify-center space-x-8 text-sm text-slate-400 pt-4 font-light">
+                <a href="https://zirodelta.com" className="hover:text-teal-400 transition-colors">Website</a>
+                <a href="https://auction.zirodelta.com" className="hover:text-teal-400 transition-colors">Auctions</a>
+                <a href="https://t.me/ZiroDeltaOfficial" className="hover:text-teal-400 transition-colors">Telegram</a>
+              </div>
+            </div>
 
           </motion.div>
         </div>
