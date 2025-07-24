@@ -1,16 +1,22 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next'
+import {
+  // Inter,
+  Montserrat,
+} from 'next/font/google'
+import './globals.css'
+import { ThemeProvider } from '@/lib/theme-provider'
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ['latin'] })
+const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '500', '600', '700'] })
 
 export const metadata: Metadata = {
-  title: "ZiroDelta - The Future of Conditional Finance",
-  description: "Revolutionary DeFi protocol for everyone. Exclusive trading bot for the elite. Where intelligence meets innovation.",
-  keywords: ["DeFi", "Conditional Finance", "PFRT", "NFRT", "Arbitrage", "Trading Bot", "ZDLT", "Staking"],
-  authors: [{ name: "ZiroDelta" }],
-  creator: "ZiroDelta",
-  publisher: "ZiroDelta",
+  title: 'ZiroDelta - The Future of Conditional Finance',
+  description:
+    'Revolutionary DeFi protocol for everyone. Exclusive trading bot for the elite. Where intelligence meets innovation.',
+  keywords: ['DeFi', 'Conditional Finance', 'PFRT', 'NFRT', 'Arbitrage', 'Trading Bot', 'ZDLT', 'Staking'],
+  authors: [{ name: 'ZiroDelta' }],
+  creator: 'ZiroDelta',
+  publisher: 'ZiroDelta',
   formatDetection: {
     email: false,
     address: false,
@@ -18,8 +24,8 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL('https://zirodelta.com'),
   openGraph: {
-    title: "ZiroDelta - The Future of Conditional Finance",
-    description: "Revolutionary DeFi protocol for everyone. Exclusive trading bot for the elite.",
+    title: 'ZiroDelta - The Future of Conditional Finance',
+    description: 'Revolutionary DeFi protocol for everyone. Exclusive trading bot for the elite.',
     url: 'https://zirodelta.com',
     siteName: 'ZiroDelta',
     images: [
@@ -50,18 +56,16 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-};
+}
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} antialiased`}>
-        {children}
+      <body className={`${montserrat.className} antialiased`}>
+        <ThemeProvider defaultTheme="system" storageKey="zirodelta-theme">
+          {children}
+        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

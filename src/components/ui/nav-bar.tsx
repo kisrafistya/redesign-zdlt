@@ -1,0 +1,67 @@
+'use client'
+
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { ThemeToggle } from '@/components/ui/theme-toggle'
+
+type NavLink = {
+  href: string
+  label: string
+}
+
+const mainLinks: NavLink[] = [
+  { href: '/manifesto', label: 'Manifesto' },
+  { href: '/flywheel', label: 'Flywheel' },
+  { href: '/roadmap', label: 'Roadmap' },
+  { href: '/staking', label: 'Staking' },
+]
+
+export function NavBar() {
+  const pathname = usePathname()
+
+  return (
+    <nav className="fixed top-0 w-full z-50 backdrop-blur-sm border-b border-border/30">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center space-x-4">
+            <div>
+              <img src="/zirolight.svg" alt="ZiroDelta" className="w-32 h-24 dark:hidden" />
+              <img src="/zirodark.svg" alt="ZiroDelta" className="w-32 h-24 hidden dark:block" />
+            </div>
+          </Link>
+
+          <div className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
+            {mainLinks.map(link => {
+              const isActive = pathname === link.href
+              return link.href === '/staking' ? (
+                <Button
+                  key={link.href}
+                  asChild
+                  variant="ghost"
+                  className="bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 transition-all duration-300 px-4 py-2 text-sm"
+                >
+                  <Link href={link.href}>{link.label}</Link>
+                </Button>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm transition-colors duration-300 ${
+                    isActive ? 'text-primary font-medium' : 'text-muted-foreground hover:text-primary'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
+          </div>
+
+          <div className="hidden md:block">
+            <ThemeToggle />
+          </div>
+        </div>
+      </div>
+    </nav>
+  )
+}
