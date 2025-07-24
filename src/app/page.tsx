@@ -144,58 +144,64 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-4 mb-8 md:mb-0">
-              <img src="/zirodelta-logo.png" alt="ZiroDelta" className="w-10 h-10" />
-              <span className="text-2xl font-light tracking-wide">ZiroDelta</span>
+              <Link href="/" className="flex items-center space-x-4">
+                <div>
+                  <img src="/zirolight.svg" alt="ZiroDelta" className="w-32 h-32 dark:hidden" />
+                  <img src="/zirodark.svg" alt="ZiroDelta" className="w-32 h-32 hidden dark:block" />
+                </div>
+              </Link>
             </div>
 
-            <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
-              {/* Social Media Links */}
-              <div className="flex items-center space-x-6">
-                <a
-                  href="https://x.com/zirodelta"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300 font-light"
-                >
-                  X
-                </a>
-                <a
-                  href="https://discord.gg/YHW275Vpn3"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300 font-light"
-                >
-                  Discord
-                </a>
-                <a
-                  href="https://t.me/zirodelta"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300 font-light"
-                >
-                  Telegram
-                </a>
-              </div>
+            {/* Social Media Links */}
+            <div className="flex items-center space-x-6">
+              <a
+                href="https://x.com/zirodelta"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-teal dark:text-white hover:text-primary transition-colors duration-300 font-light"
+              >
+                X
+              </a>
+              <span className="text-brand-teal dark:text-white">|</span>
+              <a
+                href="https://discord.gg/YHW275Vpn3"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-teal dark:text-white hover:text-primary transition-colors duration-300 font-light"
+              >
+                Discord
+              </a>
+              <span className="text-brand-teal dark:text-white">|</span>
+              <a
+                href="https://t.me/zirodelta"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-teal dark:text-white hover:text-primary transition-colors duration-300 font-light"
+              >
+                Telegram
+              </a>
+            </div>
 
-              {/* Solana Token */}
-              <div className="flex items-center space-x-2 bg-card/30 border border-border/50 rounded-lg px-4 py-2">
+            {/* Solana Token */}
+            <div className="flex items-center space-x-2 border border-border/50 dark:border-brand-teal rounded-lg px-4 py-2">
+              <div className="flex items-center space-x-2">
                 <span className="text-xs text-muted-foreground font-light">Contract Address:</span>
                 <code className="text-xs text-primary font-mono">4PX31xRA1BaAyb2Js45ZKYp92VGWGp47yWeVs5CGVKbf</code>
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText('4PX31xRA1BaAyb2Js45ZKYp92VGWGp47yWeVs5CGVKbf')
-                    // Optional: Add toast notification here
-                  }}
-                  className="text-muted-foreground hover:text-primary transition-colors duration-300 text-xs"
-                  title="Copy contract address"
-                >
-                  Copy
-                </button>
               </div>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText('4PX31xRA1BaAyb2Js45ZKYp92VGWGp47yWeVs5CGVKbf')
+                  // Optional: Add toast notification here
+                }}
+                className="text-muted-foreground hover:text-primary transition-colors duration-300 text-xs"
+                title="Copy contract address"
+              >
+                Copy
+              </button>
             </div>
           </div>
 
-          <div className="mt-12 pt-8 border-t border-border/30 text-center text-muted-foreground font-light">
+          <div className="mt-12 pt-8 border-t border-border/30 text-center text-brand-emerald dark:text-white font-light">
             <p>&copy; 2024 ZiroDelta. Intelligence meets innovation.</p>
           </div>
         </div>
