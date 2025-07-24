@@ -66,7 +66,7 @@ export default function Home() {
               <span className="block font-accent text-mono-black dark:text-brand-emerald">Innovation</span>
             </h1>
 
-            <p className="text-xl md:text-xl text-muted-foreground dark:text-brand-teal max-w-3xl mx-auto font-light leading-relaxed mb-36">
+            <p className="text-xl md:text-xl text-white dark:text-brand-teal max-w-3xl mx-auto font-light leading-relaxed mb-36">
               Revolutionary DeFi protocol for everyone.
               <br />
               Exclusive trading access for the elite.
@@ -80,7 +80,12 @@ export default function Home() {
                 </Link>
               </Button>
 
-              <Button asChild variant={isDark ? 'default' : 'outline'} size="lg" className="dark:bg-black">
+              <Button
+                asChild
+                variant={isDark ? 'default' : 'outline'}
+                size="lg"
+                className={`${isDark ? 'bg-black' : 'bg-transparent'}`}
+              >
                 <Link href="/bot">
                   <span>Elite Access</span>
                   <ArrowRight className="ml-2 w-4 h-4 dark:text-white" />

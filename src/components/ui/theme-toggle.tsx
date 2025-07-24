@@ -14,7 +14,6 @@ export function ThemeToggle() {
       size="icon"
       onClick={() => {
         if (theme === 'light') setTheme('dark')
-        else if (theme === 'dark') setTheme('system')
         else setTheme('light')
       }}
       className="relative w-9 h-9 rounded-md border border-input bg-transparent hover:bg-accent hover:text-accent-foreground"

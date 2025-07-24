@@ -33,7 +33,7 @@ export function NavBar() {
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
+          <div className="hidden md:flex items-center border dark:border-0  bg-[#F4F4F4] dark:bg-transparent rounded-lg pl-2 space-x-8 absolute left-1/2 transform -translate-x-1/2">
             {mainLinks.map(link => {
               const isActive = pathname === link.href
               return link.href === '/staking' ? (
@@ -50,7 +50,7 @@ export function NavBar() {
                   key={link.href}
                   href={link.href}
                   className={`text-sm transition-colors duration-300 ${
-                    isActive ? 'text-primary font-medium' : 'text-brand-pastel hover:text-primary'
+                    isActive ? 'text-primary font-medium' : 'dark:text-brand-pastel hover:text-primary'
                   }`}
                 >
                   {link.label}
