@@ -163,7 +163,7 @@ export default function ManifestoPage() {
                 
                 <Button asChild size="lg" variant="outline" className="bg-transparent border-teal-400/50 text-teal-400 hover:bg-teal-400/10 hover:border-teal-400 px-8 py-4 text-lg transition-all duration-300">
                   <Link href="/staking">
-                    Stake ZDLT
+                    Funding Rate Terminal
                   </Link>
                 </Button>
               </div>

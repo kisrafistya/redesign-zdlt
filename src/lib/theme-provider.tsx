@@ -25,18 +25,23 @@ const ThemeProviderContext = React.createContext<ThemeProviderState>(initialStat
 export function ThemeProvider({
   children,
   defaultTheme = 'system',
-  storageKey = 'ui-theme',
+  storageKey = 'zirodelta-theme',
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = React.useState<Theme>(defaultTheme)
-
-  React.useEffect(() => {
-    const storedTheme = localStorage?.getItem(storageKey) as Theme
-    if (storedTheme) {
-      setTheme(storedTheme)
+  // Initialize theme by reading from localStorage immediately
+  const [theme, setTheme] = React.useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const storedTheme = localStorage.getItem(storageKey) as Theme
+        return storedTheme || defaultTheme
+      } catch {
+        return defaultTheme
+      }
     }
-  }, [storageKey])
+    return defaultTheme
+  })
 
+  // Only listen for storage changes and system preference changes
   React.useEffect(() => {
     const root = window.document.documentElement
 
@@ -44,21 +49,42 @@ export function ThemeProvider({
 
     if (theme === 'system') {
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-
       root.classList.add(systemTheme)
-      return
+    } else {
+      root.classList.add(theme)
     }
-
-    root.classList.add(theme)
   }, [theme])
 
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      localStorage?.setItem(storageKey, theme)
-      setTheme(theme)
-    },
-  }
+  // Listen for system theme changes when theme is set to 'system'
+  React.useEffect(() => {
+    if (theme !== 'system') return
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const handleChange = () => {
+      const root = window.document.documentElement
+      root.classList.remove('light', 'dark')
+      const systemTheme = mediaQuery.matches ? 'dark' : 'light'
+      root.classList.add(systemTheme)
+    }
+
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [theme])
+
+  const value = React.useMemo(
+    () => ({
+      theme,
+      setTheme: (newTheme: Theme) => {
+        try {
+          localStorage.setItem(storageKey, newTheme)
+        } catch {
+          // Handle localStorage errors silently
+        }
+        setTheme(newTheme)
+      },
+    }),
+    [theme, storageKey],
+  )
 
   return (
     <ThemeProviderContext.Provider {...props} value={value}>

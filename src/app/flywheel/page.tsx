@@ -124,7 +124,7 @@ export default function Flywheel() {
               <a href="/roadmap" className="text-slate-400 hover:text-teal-400 transition-colors duration-300">Roadmap</a>
               <Button asChild variant="ghost" className="bg-teal-400/10 hover:bg-teal-400/20 text-teal-400 border border-teal-400/30 transition-all duration-300 px-4 py-2 text-sm">
                 <Link href="/staking">
-                  Staking
+                  Funding Rates
                 </Link>
               </Button>
             </div>
@@ -319,33 +319,33 @@ export default function Flywheel() {
             viewport={{ once: true }}
             className="mb-24"
           >
-            <h2 className="text-4xl font-extralight text-center mb-16">Revenue Flow</h2>
+            <h2 className="text-4xl font-extralight text-center mb-16">Funding Rate Flywheel</h2>
             
             <div className="space-y-16">
               {[
                 {
                   number: "01",
-                  title: "Bot Auction Revenue",
-                  desc: "20% of all monthly auction proceeds are distributed to ZDLT stakers. The remaining 80% is allocated to the development wallet to fund growth.",
-                  flow: "Auctions → 20% to Stakers, 80% to Dev Wallet"
+                  title: "Funding Rate Intelligence",
+                  desc: "Real-time monitoring of funding rates across KuCoin and Bybit identifies profitable arbitrage opportunities with spreads exceeding 0.5%.",
+                  flow: "Rate Monitoring → Arbitrage Detection → Profit Opportunities"
                 },
                 {
                   number: "02", 
-                  title: "Bot Subscription Fees",
-                  desc: "A 20% share of all bot subscription revenue is channeled to stakers, providing a consistent income stream from the platform's core service.",
-                  flow: "Bot subscriptions → 20% to stakers"
+                  title: "Automated Position Management",
+                  desc: "Sophisticated algorithms automatically open opposing positions on exchanges with rate differentials, maximizing funding payment collection.",
+                  flow: "Rate Spreads → Automated Positioning → Funding Collection"
                 },
                 {
                   number: "03",
-                  title: "ZDLT Buying Pressure", 
-                  desc: "Bot users must hold ZDLT to determine their trading power (size = ZDLT holdings × 10), creating constant organic demand for the token.",
-                  flow: "Trade size calculation → ZDLT buying pressure"
+                  title: "Risk-Neutral Profit Generation", 
+                  desc: "Market-neutral strategies eliminate directional risk while capturing funding rate differences, providing consistent returns regardless of price movement.",
+                  flow: "Neutral Positioning → Guaranteed Funding → Consistent Profits"
                 },
                 {
                   number: "04",
-                  title: "Prop Firm Operations",
-                  desc: "ZiroDelta leverages staked ZDLT as collateral for its internal arbitrage strategies, sharing 50% of the generated profits with stakers.",
-                  flow: "Staked ZDLT as collateral → 50% profit share"
+                  title: "Compound Growth Mechanism",
+                  desc: "Profits from funding rate arbitrage are reinvested to increase position sizes, creating exponential growth in earning potential over time.",
+                  flow: "Funding Profits → Position Size Increase → Exponential Growth"
                 },
                 {
                   number: "05",
@@ -438,13 +438,13 @@ export default function Flywheel() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-extralight mb-8">Join the Flywheel</h2>
+            <h2 className="text-4xl font-extralight mb-8">Access the Terminal</h2>
             <p className="text-xl text-slate-400 mb-12 font-light max-w-2xl mx-auto leading-relaxed">
-              Stake ZDLT and become part of the revenue distribution system
+              Monitor real-time funding rates and discover arbitrage opportunities across exchanges
             </p>
             
             <Link href="/staking" className="inline-flex items-center justify-center bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-500 hover:to-cyan-500 text-black font-medium px-12 py-4 text-lg rounded-full transition-all duration-300 transform hover:scale-105">
-              Start Staking
+              Launch Terminal
               <ArrowRight className="ml-3 w-5 h-5" />
             </Link>
           </motion.div>

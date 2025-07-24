@@ -1,452 +1,642 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowLeft, Wallet, TrendingUp, Users, Clock, DollarSign, PiggyBank, Award, Plus, Minus, ExternalLink, Info } from 'lucide-react'
+import { TrendingUp, TrendingDown, BarChart3, RefreshCw, Target } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-export default function StakingApp() {
-  const [walletConnected, setWalletConnected] = useState(false)
-  const [stakeAmount, setStakeAmount] = useState('')
-  const [unstakeAmount, setUnstakeAmount] = useState('')
-  const [activeTab, setActiveTab] = useState('stake')
+export default function FundingRateTerminal() {
+  const [lastUpdate, setLastUpdate] = useState(new Date())
 
-  // Mock user data
-  const userPosition = {
-    stakedAmount: "12,450",
-    currentTier: "Gold",
-    pendingRewards: "847.32",
-    totalEarned: "3,247.89",
-    apr: "51.4%",
-    nextDistribution: "2 days"
-  }
+  // Generate ONLY USDT pairs with stable deterministic data - NO RANDOM MATH!
+  const generateTradingPairs = () => {
+    // All tokens that will have USDT pairs - comprehensive list
+    const allTokens: string[] = [
+      'BTC', 'ETH', 'BNB', 'XRP', 'ADA', 'SOL', 'DOGE', 'TRX', 'TON', 'AVAX',
+      'SHIB', 'DOT', 'MATIC', 'LTC', 'BCH', 'UNI', 'LINK', 'ATOM', 'XMR', 'ETC',
+      'ICP', 'FIL', 'APT', 'ARB', 'OP', 'IMX', 'NEAR', 'VET', 'GRT', 'SAND',
+      'MANA', 'ALGO', 'FLOW', 'XTZ', 'EGLD', 'AAVE', 'SNX', 'MKR', 'COMP', 'CRV',
+      'SUSHI', 'YFI', 'BAL', 'REN', 'KNC', 'ZRX', 'BAT', 'ENJ', 'STORJ', 'BAND',
+      'KAVA', 'COTI', 'CTSI', 'DENT', 'HOT', 'OMG', 'ZIL', 'ICX', 'IOST', 'SC',
+      'WAN', 'FTM', 'ONE', 'THETA', 'TFUEL', 'RUNE', 'OCEAN', 'SRM', 'RAY', 'COPE',
+      'STEP', 'MEDIA', 'ROPE', 'TULIP', 'SLIM', 'STAR', 'PORT', 'MNGO', 'FIDA', 'KIN',
+      'MAPS', 'OXY', 'LIKE', 'DXL', 'PRISM', 'NINJA', 'SONAR', 'SLRS', 'PHCR', 'TOKE',
+      'INJ', 'GMT', 'APE', 'LDO', 'RPL', 'MASK', 'ENS', 'ILV', 'GALA', 'CHZ',
+      'AXS', 'MBOX', 'TLM', 'SLP', 'PYR', 'SUPER', 'UFO', 'VOXEL', 'HIGH', 'NFTX',
+      'ALICE', 'BETA', 'RARE', 'LOKA', 'PROS', 'BICO', 'FLUX', 'REQ', 'MDT', 'DF',
+      'EPS', 'AUTO', 'TKO', 'PUNDIX', 'NKN', 'CHESS', 'SPS', 'C98', 'CLV', 'QNT',
+      'FARM', 'TRU', 'ACH', 'POLY', 'SHPING', 'PERL', 'DEXE', 'ERN', 'KLAYTN', 'MOVR',
+      'RAD', 'LAZIO', 'SANTOS', 'NMR', 'REI', 'FOOTBALL', 'ALPINE', 'CITY', 'BAR', 'PSG',
+      'JUV', 'ATM', 'ASR', 'OG', 'PEPE', 'FLOKI', 'BONK', 'WIF', 'MEW', 'POPCAT',
+      'NEIRO', 'GOAT', 'PNUT', 'BRETT', 'TURBO', 'MOG', 'BOOK', 'MOODENG', 'PONKE', 'MOTHER',
+      'DADDY', 'SIGMA', 'BILLY', 'MANEKI', 'NOT', 'DOGS', 'HMSTR', 'CATI', 'BLUM', 'X',
+      'MAJOR', 'EIGEN', 'GRASS', 'SCR', 'LUMIA', 'CETUS', 'KAIA', 'USUAL', 'VANA', 'VELODROME'
+    ]
 
-  const platformStats = {
-    totalStaked: "$0",
-    totalStakers: "0",
-    avgAPR: "51.4%",
-    totalDistributed: "$0"
-  }
-
-  const stakingTiers = [
-    { name: "Bronze", min: "1,000", apr: "12%", current: false },
-    { name: "Silver", min: "5,000", apr: "18%", current: false },
-    { name: "Gold", min: "10,000", apr: "25%", current: true },
-    { name: "Diamond", min: "50,000", apr: "35%", current: false }
-  ]
-
-  const recentRewards = [
-    { date: "Dec 22", amount: "43.21", source: "Bot Auction Share" },
-    { date: "Dec 15", amount: "78.45", source: "Prop Trading Share" },
-    { date: "Dec 8", amount: "34.67", source: "Bot Subscription Share" },
-    { date: "Dec 1", amount: "91.23", source: "Bot Auction Share" }
-  ]
-
-  const rewardSources = [
-    {
-      title: "Bot Auction Revenue",
-      share: "20%",
-      description: "A 20% portion of all monthly auction proceeds is distributed to stakers."
-    },
-    {
-      title: "Bot Subscription Fees",
-      share: "20%",
-      description: "Stakers receive 20% of the revenue from monthly bot subscription fees."
-    },
-    {
-      title: "Proprietary Trading",
-      share: "50%",
-      description: "Our internal trading desk shares 50% of its net profits with stakers."
+    const pairs: Array<{
+      pair: string
+      kucoin: number
+      bybit: number
+      openInterestKucoin: number
+      openInterestBybit: number
+      volume24h: number
+      priceChange24h: number
+      spread?: number
+    }> = []
+    
+    // Create ONLY USDT pairs with deterministic data based on token index
+    for (let i = 0; i < allTokens.length; i++) {
+      const token: string = allTokens[i]
+      
+      // Deterministic values based on token index - NO RANDOM!
+      const indexFactor = (i + 1) / allTokens.length
+      const cycleFactor = Math.sin(i * 0.5) * 0.5 + 0.5
+      const altCycleFactor = Math.cos(i * 0.3) * 0.5 + 0.5
+      
+      // Stable funding rates based on token position
+      const kucoinRate = (indexFactor - 0.5) * 0.04 + cycleFactor * 0.02 - 0.01
+      const bybitRate = (indexFactor - 0.5) * 0.04 + altCycleFactor * 0.02 - 0.005
+      
+      pairs.push({
+        pair: `${token}/USDT`,
+        kucoin: kucoinRate,
+        bybit: bybitRate,
+        openInterestKucoin: 1000000000 + indexFactor * 4000000000,
+        openInterestBybit: 800000000 + cycleFactor * 3500000000,
+        volume24h: 50000000 + indexFactor * 500000000,
+        priceChange24h: (indexFactor - 0.5) * 15 + Math.sin(i * 0.7) * 5
+      })
     }
-  ]
+    
+    // Calculate spreads and sort by spread value (color sorting)
+    const pairsWithSpread = pairs.map(rate => ({
+      ...rate,
+      spread: rate.kucoin - rate.bybit
+    }))
+    
+    // Sort by spread value for color consistency
+    return pairsWithSpread.sort((a, b) => a.spread - b.spread)
+  }
+
+  // Mock real-time funding rate data with proper pairs
+  const [fundingRates, setFundingRates] = useState(() => generateTradingPairs())
+
+  // Historical data for charts (24h history) - Stable deterministic patterns NO RANDOM!
+  const [chartData] = useState(() => {
+    const hours = Array.from({length: 24}, (_, i) => i)
+    return hours.map(hour => {
+      // Deterministic funding rate patterns:
+      // - Based on realistic 8-hour funding cycles
+      // - Stable oscillating patterns
+      // - No random math, consistent results
+      
+      const timeOfDay = hour % 8 // 8-hour funding cycles
+      const marketSentiment = 0.65 // 65% bullish market (positive rates more common)
+      
+      // Base rates with deterministic patterns
+      const kucoinBase = 0.0001 + Math.sin(hour / 3) * 0.0002 // Oscillating around 0.01%
+      const bybitBase = 0.00008 + Math.cos(hour / 4) * 0.00015 // Slightly different pattern
+      
+      // Add funding cycle effects (every 8 hours)
+      const cycleEffect = Math.sin(timeOfDay * Math.PI / 4) * 0.00005
+      
+      // Add market sentiment bias
+      const sentimentBias = marketSentiment > 0.5 ? 0.00003 : -0.00003
+      
+      // Deterministic micro-variations based on hour
+      const kucoinMicroVar = Math.sin(hour * 1.3) * 0.00001
+      const bybitMicroVar = Math.cos(hour * 1.7) * 0.00001
+      
+      const kucoinRate = kucoinBase + cycleEffect + sentimentBias + kucoinMicroVar
+      const bybitRate = bybitBase + cycleEffect * 0.8 + sentimentBias + bybitMicroVar
+      
+      return {
+        time: `${hour.toString().padStart(2, '0')}:00`,
+        kucoinAvg: Math.max(-0.0005, Math.min(0.0008, kucoinRate)), // Cap between -0.05% and +0.08%
+        bybitAvg: Math.max(-0.0005, Math.min(0.0008, bybitRate)),
+        spread: Math.abs(kucoinRate - bybitRate),
+        volume: 50000000 + hour * 2000000 + Math.sin(hour * 0.5) * 30000000 // Deterministic volume
+      }
+    })
+  })
+
+  // Simulate real-time updates with stable patterns - NO RANDOM!
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLastUpdate(new Date())
+      setFundingRates(prev => prev.map((rate, index) => {
+        // Deterministic micro-changes based on index and time
+        const timeFactor = Date.now() / 100000
+        const microChange = Math.sin(timeFactor + index * 0.1) * 0.0002
+        const altMicroChange = Math.cos(timeFactor + index * 0.15) * 0.0002
+        
+        return {
+          ...rate,
+          kucoin: rate.kucoin + microChange,
+          bybit: rate.bybit + altMicroChange,
+        }
+      }).map(rate => ({
+        ...rate,
+        spread: rate.kucoin - rate.bybit
+      })))
+    }, 5000) // Update every 5 seconds for demo
+
+    return () => clearInterval(interval)
+  }, [])
+
+  const formatRate = (rate: number) => {
+    const sign = rate >= 0 ? '+' : ''
+    return `${sign}${(rate * 100).toFixed(3)}%`
+  }
+
+  const formatCurrency = (amount: number) => {
+    if (amount >= 1000000000) return `$${(amount / 1000000000).toFixed(1)}B`
+    if (amount >= 1000000) return `$${(amount / 1000000).toFixed(0)}M`
+    return `$${amount.toLocaleString()}`
+  }
+
+  // Helper function to format UTC time
+  const formatUTCTime = (date: Date) => {
+    return date.toUTCString().split(' ')[4] // Extract HH:MM:SS from UTC string
+  }
+
+  // Filter for USDT pairs only
+  const usdtPairs = fundingRates.filter(rate => rate.pair.endsWith('/USDT'))
+
+  const totalOI = fundingRates.reduce((sum, rate) => sum + rate.openInterestKucoin + rate.openInterestBybit, 0)
+  const arbitrageOps = fundingRates.filter(rate => Math.abs(rate.spread) > 0.005).length
+  const avgSpread = fundingRates.reduce((sum, rate) => sum + Math.abs(rate.spread), 0) / fundingRates.length
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-black text-white overflow-hidden">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-sm border-b border-slate-800/30">
-        <div className="max-w-7xl mx-auto px-6 py-4">
+      <nav className="fixed top-0 w-full z-50 bg-black/95 backdrop-blur-sm border-b border-gray-800">
+        <div className="max-w-7xl mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-4">
-              <img src="/zirodelta-logo.png" alt="ZiroDelta" className="w-10 h-10" />
-              <span className="text-2xl font-extralight tracking-wide">ZiroDelta</span>
+            <Link href="/" className="flex items-center space-x-3">
+              <img src="/zirodelta-logo.png" alt="ZiroDelta" className="w-8 h-8" />
+              <span className="text-xl font-light tracking-wide">ZiroDelta Terminal</span>
             </Link>
             
             <div className="flex items-center space-x-4">
-              {!walletConnected ? (
-                <Button 
-                  onClick={() => setWalletConnected(true)}
-                  className="bg-teal-400 hover:bg-teal-500 text-black font-light transition-all duration-300"
-                >
-                  <Wallet className="w-4 h-4 mr-2" />
-                  Connect Wallet
+              <div className="flex items-center space-x-2 text-xs">
+                <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                <span className="text-gray-400">LIVE</span>
+                <span className="text-gray-600">•</span>
+                <span className="text-gray-400">{formatUTCTime(lastUpdate)} UTC</span>
+              </div>
+              <Button size="sm" variant="outline" className="border-gray-700 hover:bg-gray-800">
+                <RefreshCw className="w-3 h-3 mr-1" />
+                Refresh
                 </Button>
-              ) : (
-                <div className="flex items-center space-x-2 px-3 py-2 bg-slate-800/50 border border-slate-700 rounded-lg">
-                  <div className="w-2 h-2 bg-teal-400 rounded-full" />
-                  <span className="text-sm font-light">0x...4f2a</span>
-                </div>
-              )}
             </div>
           </div>
         </div>
       </nav>
 
-      {!walletConnected ? (
-        /* Wallet Connection Required */
-        <section className="pt-32 pb-20">
-          <div className="max-w-2xl mx-auto px-6 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="w-20 h-20 bg-teal-400/10 border border-teal-400/30 rounded-lg flex items-center justify-center mx-auto mb-8">
-                <Wallet className="w-10 h-10 text-teal-400" />
-              </div>
-              
-              <h1 className="text-4xl md:text-5xl font-extralight mb-6 leading-tight">
-                Connect Your Wallet
-              </h1>
-              
-              <p className="text-lg text-slate-400 mb-8 font-light leading-relaxed">
-                Connect your wallet to start staking ZDLT and earning revenue from the platform.
-              </p>
-              
-              <Button 
-                onClick={() => setWalletConnected(true)}
-                size="lg" 
-                className="bg-teal-400 hover:bg-teal-500 text-black font-light px-8 py-4 text-lg transition-all duration-300"
-              >
-                <Wallet className="w-5 h-5 mr-2" />
-                Connect Wallet
-              </Button>
-              
-              <div className="mt-12 grid md:grid-cols-3 gap-6 text-center">
-                <div>
-                  <div className="text-2xl font-light text-teal-400 mb-2">{platformStats.totalStaked}</div>
-                  <div className="text-sm text-slate-400 font-light">Total Staked</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-light text-white mb-2">{platformStats.avgAPR}</div>
-                  <div className="text-sm text-slate-400 font-light">Average APR</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-light text-teal-400 mb-2">{platformStats.totalDistributed}</div>
-                  <div className="text-sm text-slate-400 font-light">Total Distributed</div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-      ) : (
-        /* Main Staking App */
-        <section className="pt-24 pb-20">
-          <div className="max-w-7xl mx-auto px-6">
+      {/* Hero Section */}
+      <div className="pt-16 pb-8">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center py-16 relative">
+            {/* Background Effects */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-blue-600/10 rounded-3xl blur-3xl"></div>
             
-            {/* Header with Stats */}
-            <div className="mb-8">
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
-                <div>
-                  <h1 className="text-3xl md:text-4xl font-extralight mb-2">Staking Dashboard</h1>
-                  <p className="text-slate-400 font-light">Manage your ZDLT stake and track rewards</p>
+            <div className="relative z-10">
+              {/* Main Hero Title */}
+              <motion.h1 
+                className="text-5xl md:text-7xl font-light tracking-tight text-white mb-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                Funding Rate
+                <span className="block bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent font-medium">
+                  Terminal
+                </span>
+              </motion.h1>
+              
+              {/* Subtitle */}
+              <motion.p 
+                className="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                Real-time arbitrage opportunities across exchanges. Monitor funding rate spreads, 
+                analyze market sentiment, and capitalize on cross-exchange inefficiencies.
+              </motion.p>
+              
+              {/* Key Features */}
+              <motion.div 
+                className="flex flex-wrap justify-center gap-6 mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                <div className="flex items-center space-x-2 text-gray-400">
+                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                  <span className="text-sm uppercase tracking-wide">Live Data</span>
                 </div>
-                <div className="flex items-center space-x-8 mt-4 lg:mt-0">
-                  <div className="text-center">
-                    <div className="text-2xl font-light text-teal-400">{userPosition.pendingRewards}</div>
-                    <div className="text-xs text-slate-400 font-light">Pending Rewards</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-light text-white">{userPosition.apr}</div>
-                    <div className="text-xs text-slate-400 font-light">Current APR</div>
-                  </div>
-                  <Button className="bg-teal-400 hover:bg-teal-500 text-black font-light px-6 py-2">
-                    <DollarSign className="w-4 h-4 mr-2" />
-                    Claim Rewards
-                  </Button>
+                <div className="flex items-center space-x-2 text-gray-400">
+                  <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                  <span className="text-sm uppercase tracking-wide">Multi-Exchange</span>
                 </div>
+                <div className="flex items-center space-x-2 text-gray-400">
+                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <span className="text-sm uppercase tracking-wide">USDT Pairs</span>
+                </div>
+                <div className="flex items-center space-x-2 text-gray-400">
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                  <span className="text-sm uppercase tracking-wide">Arbitrage Ready</span>
+                </div>
+              </motion.div>
+              
+              {/* Status Indicator */}
+              <motion.div 
+                className="inline-flex items-center space-x-3 bg-gray-900/50 border border-gray-700 rounded-full px-6 py-3"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                <div className="relative">
+                  <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                  <div className="absolute inset-0 w-3 h-3 bg-green-400 rounded-full animate-ping opacity-75"></div>
+                </div>
+                <span className="text-sm font-medium text-white">System Online</span>
+                <span className="text-xs text-gray-400">•</span>
+                <span className="text-xs text-gray-400">{fundingRates.length} Active Pairs</span>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Dashboard */}
+      <div className="p-6">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Header Stats */}
+          <div className="grid grid-cols-4 gap-6 mb-6">
+            <Card className="bg-gray-900/50 border-gray-800">
+              <CardContent className="p-4">
+                <div className="text-2xl font-mono font-light text-white">{fundingRates.length}</div>
+                <div className="text-xs text-gray-400 uppercase tracking-wide">Active Pairs</div>
+              </CardContent>
+            </Card>
+            <Card className="bg-gray-900/50 border-gray-800">
+              <CardContent className="p-4">
+                <div className="text-2xl font-mono font-light text-white">{arbitrageOps}</div>
+                <div className="text-xs text-gray-400 uppercase tracking-wide">Arbitrage Ops</div>
+              </CardContent>
+            </Card>
+            <Card className="bg-gray-900/50 border-gray-800">
+              <CardContent className="p-4">
+                <div className="text-2xl font-mono font-light text-white">{formatCurrency(totalOI)}</div>
+                <div className="text-xs text-gray-400 uppercase tracking-wide">Total OI</div>
+              </CardContent>
+            </Card>
+            <Card className="bg-gray-900/50 border-gray-800">
+              <CardContent className="p-4">
+                <div className="text-2xl font-mono font-light text-white">{formatRate(avgSpread)}</div>
+                <div className="text-xs text-gray-400 uppercase tracking-wide">Avg Spread</div>
+              </CardContent>
+            </Card>
               </div>
               
-              {/* User Position Summary */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 p-6 bg-slate-900/50 border border-slate-800 rounded-lg">
-                <div className="text-center">
-                  <div className="text-2xl font-light text-teal-400 mb-1">{userPosition.stakedAmount}</div>
-                  <div className="text-sm text-slate-400 font-light">ZDLT Staked</div>
-                </div>
-                <div className="text-center">
-                  <div className="flex items-center justify-center space-x-2">
-                    <div className="text-2xl font-light text-white">{userPosition.currentTier}</div>
-                    <div className="group relative">
-                      <Info className="w-4 h-4 text-slate-400 cursor-help" />
-                      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-48 p-3 bg-slate-800 border border-slate-700 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
-                        <div className="text-xs text-white font-light mb-2">Gold Tier Benefits:</div>
-                        <div className="text-xs text-slate-400 font-light">• 25% APR</div>
-                        <div className="text-xs text-slate-400 font-light">• Min: 10,000 ZDLT</div>
-                        <div className="text-xs text-slate-400 font-light">• Next: Diamond (50,000 ZDLT)</div>
+          <div className="grid grid-cols-3 gap-6">
+            
+            {/* Main Chart Area */}
+            <div className="col-span-2 space-y-6">
+              
+              {/* Enhanced Funding Rate Trends Chart */}
+              <Card className="bg-gray-900/50 border-gray-800">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-sm font-medium text-gray-300 uppercase tracking-wide">Funding Rate Trends (24H)</CardTitle>
+                    <div className="flex items-center space-x-4 text-xs">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+                        <span className="text-gray-400">KuCoin</span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                        <span className="text-gray-400">Bybit</span>
                       </div>
                     </div>
                   </div>
-                  <div className="text-sm text-slate-400 font-light">Current Tier</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-light text-teal-400 mb-1">{userPosition.totalEarned}</div>
-                  <div className="text-sm text-slate-400 font-light">Total Earned</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-light text-white mb-1">{userPosition.nextDistribution}</div>
-                  <div className="text-sm text-slate-400 font-light">Next Distribution</div>
+                </CardHeader>
+                <CardContent className="p-0">
+                                    <div className="h-80 relative p-6">
+                    <svg className="w-full h-full" viewBox="0 0 1000 320">
+                      {/* Definitions for gradients and filters */}
+                      <defs>
+                        <linearGradient id="kucoinGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" style={{stopColor: "rgb(59, 130, 246)", stopOpacity: 0.3}} />
+                          <stop offset="100%" style={{stopColor: "rgb(59, 130, 246)", stopOpacity: 0.05}} />
+                        </linearGradient>
+                        <linearGradient id="bybitGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" style={{stopColor: "rgb(168, 85, 247)", stopOpacity: 0.3}} />
+                          <stop offset="100%" style={{stopColor: "rgb(168, 85, 247)", stopOpacity: 0.05}} />
+                        </linearGradient>
+                        <filter id="glow">
+                          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                          <feMerge> 
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                          </feMerge>
+                        </filter>
+                      </defs>
+                      
+                      {/* Enhanced grid lines */}
+                      {Array.from({length: 7}).map((_, i) => (
+                        <g key={`horizontal-${i}`}>
+                          <line 
+                            x1="100" 
+                            y1={50 + i * 35} 
+                            x2="880" 
+                            y2={50 + i * 35} 
+                            stroke={i === 3 ? "rgb(75, 85, 99)" : "rgb(55, 65, 81)"} 
+                            strokeWidth={i === 3 ? "1" : "0.5"}
+                            strokeDasharray={i === 3 ? "none" : "2,2"}
+                          />
+                          {/* Y-axis labels */}
+                          <text 
+                            x="85" 
+                            y={55 + i * 35} 
+                            fill="rgb(156, 163, 175)" 
+                            fontSize="11" 
+                            textAnchor="end"
+                            fontFamily="monospace"
+                          >
+                            {(0.08 - i * 0.027).toFixed(3)}%
+                          </text>
+                        </g>
+                      ))}
+                      
+                      {/* Vertical grid lines */}
+                      {Array.from({length: 13}).map((_, i) => (
+                        <line 
+                          key={`vertical-${i}`}
+                          x1={100 + i * 60} 
+                          y1="50" 
+                          x2={100 + i * 60} 
+                          y2="260" 
+                          stroke="rgb(55, 65, 81)" 
+                          strokeWidth="0.5"
+                          strokeDasharray="2,2"
+                        />
+                      ))}
+                      
+                      {/* KuCoin area fill */}
+                      <path
+                        d={`M 100,155 ${chartData.map((d, i) => 
+                          `L ${100 + i * 32},${155 - d.kucoinAvg * 30000}`
+                        ).join(' ')} L ${100 + (chartData.length - 1) * 32},155 Z`}
+                        fill="url(#kucoinGradient)"
+                      />
+                      
+                      {/* Bybit area fill */}
+                      <path
+                        d={`M 100,155 ${chartData.map((d, i) => 
+                          `L ${100 + i * 32},${155 - d.bybitAvg * 30000}`
+                        ).join(' ')} L ${100 + (chartData.length - 1) * 32},155 Z`}
+                        fill="url(#bybitGradient)"
+                      />
+                      
+                      {/* KuCoin line with glow effect */}
+                      <polyline
+                        fill="none"
+                        stroke="rgb(59, 130, 246)"
+                        strokeWidth="3"
+                        filter="url(#glow)"
+                        points={chartData.map((d, i) => 
+                          `${100 + i * 32},${155 - d.kucoinAvg * 30000}`
+                        ).join(' ')}
+                      />
+                      
+                      {/* Bybit line with glow effect */}
+                      <polyline
+                        fill="none"
+                        stroke="rgb(168, 85, 247)"
+                        strokeWidth="3"
+                        filter="url(#glow)"
+                        points={chartData.map((d, i) => 
+                          `${100 + i * 32},${155 - d.bybitAvg * 30000}`
+                        ).join(' ')}
+                      />
+                      
+                      {/* Data points for KuCoin */}
+                      {chartData.map((d, i) => (
+                        <circle
+                          key={`kucoin-point-${i}`}
+                          cx={100 + i * 32}
+                          cy={155 - d.kucoinAvg * 30000}
+                          r="2.5"
+                          fill="rgb(59, 130, 246)"
+                          stroke="white"
+                          strokeWidth="1"
+                          className="opacity-0 hover:opacity-100 transition-opacity"
+                        />
+                      ))}
+                      
+                      {/* Data points for Bybit */}
+                      {chartData.map((d, i) => (
+                        <circle
+                          key={`bybit-point-${i}`}
+                          cx={100 + i * 32}
+                          cy={155 - d.bybitAvg * 30000}
+                          r="2.5"
+                          fill="rgb(168, 85, 247)"
+                          stroke="white"
+                          strokeWidth="1"
+                          className="opacity-0 hover:opacity-100 transition-opacity"
+                        />
+                      ))}
+                      
+                      {/* Enhanced time labels */}
+                      {chartData.filter((_, i) => i % 3 === 0).map((d, i) => (
+                        <g key={`time-label-${i}`}>
+                          <line 
+                            x1={100 + i * 96} 
+                            y1="260" 
+                            x2={100 + i * 96} 
+                            y2="265" 
+                            stroke="rgb(156, 163, 175)" 
+                            strokeWidth="1"
+                          />
+                          <text 
+                            x={100 + i * 96} 
+                            y={280} 
+                            fill="rgb(156, 163, 175)" 
+                            fontSize="11" 
+                            textAnchor="middle"
+                            fontFamily="monospace"
+                          >
+                            {d.time}
+                          </text>
+                        </g>
+                      ))}
+                      
+                      {/* Chart border */}
+                      <rect 
+                        x="100" 
+                        y="50" 
+                        width="780" 
+                        height="210" 
+                        fill="none" 
+                        stroke="rgb(75, 85, 99)" 
+                        strokeWidth="1"
+                      />
+                      
+                      {/* Current values display */}
+                      <g className="current-values">
+                        <rect x="700" y="60" width="170" height="60" fill="rgba(0,0,0,0.8)" rx="6" stroke="rgb(75, 85, 99)" strokeWidth="1"/>
+                        <text x="710" y="80" fill="rgb(156, 163, 175)" fontSize="10" fontFamily="monospace">Current Rates:</text>
+                        <text x="710" y="95" fill="rgb(59, 130, 246)" fontSize="12" fontFamily="monospace">
+                          KuCoin: {formatRate(chartData[chartData.length - 1]?.kucoinAvg || 0)}
+                        </text>
+                        <text x="710" y="110" fill="rgb(168, 85, 247)" fontSize="12" fontFamily="monospace">
+                          Bybit: {formatRate(chartData[chartData.length - 1]?.bybitAvg || 0)}
+                        </text>
+                      </g>
+                      
+                      {/* Axis labels */}
+                      <text x="490" y="305" fill="rgb(156, 163, 175)" fontSize="12" textAnchor="middle" fontFamily="sans-serif">Time (24H)</text>
+                      <text x="25" y="155" fill="rgb(156, 163, 175)" fontSize="11" textAnchor="middle" transform="rotate(-90, 25, 155)" fontFamily="sans-serif">Funding Rate (%)</text>
+                    </svg>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* USDT Pairs Spread Analysis */}
+              <Card className="bg-gray-900/50 border-gray-800">
+                <CardHeader>
+                  <CardTitle className="text-sm font-medium text-gray-300 uppercase tracking-wide">USDT Pairs Spread Analysis ({usdtPairs.length} Pairs)</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-10 gap-3 max-h-96 overflow-y-auto">
+                    {usdtPairs.slice(0, 100).map((rate, index) => {
+                      const intensity = Math.min(Math.abs(rate.spread) * 30, 0.9) + 0.1
+                      const isPositive = rate.spread > 0
+                      const color = isPositive ? 
+                        `rgba(34, 197, 94, ${intensity})` : 
+                        `rgba(239, 68, 68, ${intensity})`
+                      
+                      return (
+                        <div 
+                          key={rate.pair}
+                          className="aspect-square rounded-lg border border-gray-700 flex flex-col items-center justify-center relative group cursor-pointer p-2"
+                          style={{ backgroundColor: color }}
+                        >
+                  <div className="text-center">
+                            <div className="text-xs font-semibold text-white mb-1 drop-shadow-lg">
+                              {rate.pair.split('/')[0]}
+                  </div>
+                            <div className="text-xs font-mono font-bold text-white drop-shadow-lg">
+                              {formatRate(rate.spread)}
                 </div>
               </div>
+              
+                          {/* Improved Tooltip */}
+                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-3 bg-gray-900 border border-gray-600 rounded-lg text-xs opacity-0 group-hover:opacity-100 transition-opacity z-20 whitespace-nowrap shadow-xl">
+                            <div className="font-medium text-white mb-2">{rate.pair}</div>
+                            <div className="space-y-1 text-gray-300">
+                              <div>KuCoin: <span className={rate.kucoin > 0 ? 'text-green-400' : 'text-red-400'}>{formatRate(rate.kucoin)}</span></div>
+                              <div>Bybit: <span className={rate.bybit > 0 ? 'text-green-400' : 'text-red-400'}>{formatRate(rate.bybit)}</span></div>
+                              <div>Spread: <span className={rate.spread > 0 ? 'text-green-400' : 'text-red-400'}>{formatRate(rate.spread)}</span></div>
+                              <div className="text-xs text-gray-400 pt-1">Vol: {formatCurrency(rate.volume24h)}</div>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                  <div className="flex items-center justify-between mt-4 text-xs text-gray-400">
+                    <div className="flex items-center space-x-4">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-3 h-3 bg-red-500 rounded"></div>
+                        <span>Negative Spread (Bybit Higher)</span>
+                </div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-3 h-3 bg-green-500 rounded"></div>
+                        <span>Positive Spread (KuCoin Higher)</span>
+                      </div>
+                    </div>
+                    <div className="text-xs text-gray-500">Showing top 100 USDT pairs</div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-8 lg:items-start">
+            {/* Side Panel */}
+            <div className="space-y-6">
               
-              {/* Left Column - Staking Interface */}
-              <div className="lg:col-span-2 space-y-6">
-                
-                {/* Staking Interface */}
-                <Card className="bg-slate-900/50 border-slate-800">
+              {/* Top Opportunities */}
+              <Card className="bg-gray-900/50 border-gray-800">
                   <CardHeader>
-                    <div className="flex space-x-1 bg-slate-800/50 rounded-lg p-1">
-                      <button
-                        onClick={() => setActiveTab('stake')}
-                        className={`flex-1 py-2 px-4 rounded-md text-sm font-light transition-all duration-200 ${
-                          activeTab === 'stake' 
-                            ? 'bg-teal-400 text-black' 
-                            : 'text-slate-400 hover:text-white'
-                        }`}
-                      >
-                        Stake
-                      </button>
-                      <button
-                        onClick={() => setActiveTab('unstake')}
-                        className={`flex-1 py-2 px-4 rounded-md text-sm font-light transition-all duration-200 ${
-                          activeTab === 'unstake' 
-                            ? 'bg-teal-400 text-black' 
-                            : 'text-slate-400 hover:text-white'
-                        }`}
-                      >
-                        Unstake
-                      </button>
-                    </div>
+                  <CardTitle className="text-sm font-medium text-gray-300 uppercase tracking-wide flex items-center">
+                    <Target className="w-4 h-4 mr-2" />
+                    Top Opportunities
+                  </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    {activeTab === 'stake' ? (
-                      <div className="space-y-4">
-                        <div>
-                          <label className="block text-sm font-light text-slate-400 mb-2">Amount to Stake</label>
-                          <div className="relative">
-                            <input
-                              type="number"
-                              value={stakeAmount}
-                              onChange={(e) => setStakeAmount(e.target.value)}
-                              placeholder="0.00"
-                              className="w-full p-4 bg-slate-800/50 border border-slate-700 rounded-lg text-white font-light focus:border-teal-400 focus:outline-none"
-                            />
-                            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
-                              ZDLT
-                            </div>
+                <CardContent className="space-y-3">
+                  {fundingRates
+                    .sort((a, b) => Math.abs(b.spread) - Math.abs(a.spread))
+                    .slice(0, 5)
+                    .map((rate, index) => (
+                      <div key={rate.pair} className="flex items-center justify-between p-3 bg-gray-800 border border-gray-700 rounded-lg">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-6 h-6 bg-gray-600 rounded text-xs flex items-center justify-center font-mono text-white font-bold">
+                            {index + 1}
                           </div>
-                          <div className="mt-2 text-sm text-slate-400 font-light">
-                            Available: 25,340.56 ZDLT
+                          <div>
+                            <div className="text-sm font-medium text-white">{rate.pair}</div>
+                            <div className="text-xs text-gray-400">{formatCurrency(rate.volume24h)} vol</div>
                           </div>
                         </div>
-                        
-                        <div className="flex gap-2">
-                          <Button variant="ghost" size="sm" className="border border-teal-400/30 text-teal-400 hover:bg-teal-400/10" onClick={() => setStakeAmount('2500')}>
-                            25%
-                          </Button>
-                          <Button variant="ghost" size="sm" className="border border-teal-400/30 text-teal-400 hover:bg-teal-400/10" onClick={() => setStakeAmount('5000')}>
-                            50%
-                          </Button>
-                          <Button variant="ghost" size="sm" className="border border-teal-400/30 text-teal-400 hover:bg-teal-400/10" onClick={() => setStakeAmount('7500')}>
-                            75%
-                          </Button>
-                          <Button variant="ghost" size="sm" className="border border-teal-400/30 text-teal-400 hover:bg-teal-400/10" onClick={() => setStakeAmount('10000')}>
-                            MAX
-                          </Button>
-                        </div>
-                        
-                        <Button className="w-full bg-teal-400 hover:bg-teal-500 text-black font-light py-3">
-                          <Plus className="w-4 h-4 mr-2" />
-                          Stake ZDLT
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="space-y-4">
-                        <div>
-                          <label className="block text-sm font-light text-slate-400 mb-2">Amount to Unstake</label>
-                          <div className="relative">
-                            <input
-                              type="number"
-                              value={unstakeAmount}
-                              onChange={(e) => setUnstakeAmount(e.target.value)}
-                              placeholder="0.00"
-                              className="w-full p-4 bg-slate-800/50 border border-slate-700 rounded-lg text-white font-light focus:border-teal-400 focus:outline-none"
-                            />
-                            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
-                              ZDLT
-                            </div>
+                        <div className="text-right">
+                          <div className={`text-sm font-mono font-bold ${rate.spread > 0 ? 'text-green-400' : 'text-red-400'}`}>
+                            {formatRate(rate.spread)}
                           </div>
-                          <div className="mt-2 text-sm text-slate-400 font-light">
-                            Staked: {userPosition.stakedAmount} ZDLT
-                          </div>
-                        </div>
-                        
-                        <div className="flex gap-2">
-                          <Button variant="ghost" size="sm" className="border border-teal-400/30 text-teal-400 hover:bg-teal-400/10" onClick={() => setUnstakeAmount('3112')}>
-                            25%
-                          </Button>
-                          <Button variant="ghost" size="sm" className="border border-teal-400/30 text-teal-400 hover:bg-teal-400/10" onClick={() => setUnstakeAmount('6225')}>
-                            50%
-                          </Button>
-                          <Button variant="ghost" size="sm" className="border border-teal-400/30 text-teal-400 hover:bg-teal-400/10" onClick={() => setUnstakeAmount('9337')}>
-                            75%
-                          </Button>
-                          <Button variant="ghost" size="sm" className="border border-teal-400/30 text-teal-400 hover:bg-teal-400/10" onClick={() => setUnstakeAmount('12450')}>
-                            MAX
-                          </Button>
-                        </div>
-                        
-                        <div className="p-3 bg-amber-400/10 border border-amber-400/30 rounded-lg">
-                          <p className="text-amber-400 text-sm font-light">
-                            Unstaking has a 7-day cooldown period. You'll continue earning rewards during this time.
-                          </p>
-                        </div>
-                        
-                        <Button className="w-full bg-slate-600 hover:bg-slate-700 text-white font-light py-3">
-                          <Minus className="w-4 h-4 mr-2" />
-                          Unstake ZDLT
-                        </Button>
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-
-                {/* Recent Rewards - Horizontal Layout */}
-                <div>
-                  <h3 className="text-sm font-light text-slate-400 mb-3">Recent Rewards</h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {recentRewards.map((reward, index) => (
-                      <div key={index} className="flex items-center p-3 bg-slate-900/50 border border-slate-800 rounded-lg">
-                        <div className="w-6 h-6 bg-teal-400/10 border border-teal-400/30 rounded flex items-center justify-center mr-3">
-                          <DollarSign className="w-3 h-3 text-teal-400" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="text-teal-400 font-light text-sm">+{reward.amount}</div>
-                          <div className="text-xs text-slate-400">{reward.date}</div>
                         </div>
                       </div>
                     ))}
-                  </div>
-                </div>
+                </CardContent>
+              </Card>
 
-              </div>
 
-              {/* Right Column - Performance Chart */}
-              <div className="space-y-6">
-                
-                {/* Stake Performance Chart */}
-                <Card className="bg-slate-900/50 border-slate-800">
-                  <CardHeader>
-                    <CardTitle className="text-xl font-light">Your Stake Performance</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    {/* Performance Summary */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="text-center">
-                        <div className="text-2xl font-light text-teal-400 mb-1">+$2,847</div>
-                        <div className="text-xs text-slate-400 font-light">Total Profit</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-light text-teal-400 mb-1">+18.3%</div>
-                        <div className="text-xs text-slate-400 font-light">Total Return</div>
-                      </div>
-                    </div>
 
-                    {/* Simple Performance Chart */}
-                    <div className="relative h-40 bg-slate-800/30 rounded-lg p-4">
-                      <div className="absolute top-2 left-4 text-xs text-slate-400">Equity Value</div>
-                      <div className="absolute top-2 right-4 text-xs text-teal-400">$18,347</div>
-                      
-                      {/* Simple line chart visualization */}
-                      <svg className="w-full h-full" viewBox="0 0 300 100">
-                        <defs>
-                          <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="#14b8a6" stopOpacity="0.3"/>
-                            <stop offset="100%" stopColor="#14b8a6" stopOpacity="0.05"/>
-                          </linearGradient>
-                        </defs>
-                        
-                        {/* Chart line */}
-                        <polyline
-                          fill="none"
-                          stroke="#14b8a6"
-                          strokeWidth="2"
-                          points="20,80 60,75 100,70 140,65 180,55 220,50 260,45 280,40"
-                        />
-                        
-                        {/* Fill area */}
-                        <polygon
-                          fill="url(#gradient)"
-                          points="20,80 60,75 100,70 140,65 180,55 220,50 260,45 280,40 280,85 20,85"
-                        />
-                        
-                        {/* Data points */}
-                        <circle cx="280" cy="40" r="3" fill="#14b8a6" />
-                      </svg>
-                    </div>
-
-                    {/* Time Period Selector */}
-                    <div className="flex gap-2">
-                      <button className="px-3 py-1 bg-teal-400/20 text-teal-400 rounded text-xs font-light">7D</button>
-                      <button className="px-3 py-1 bg-slate-800/50 text-slate-400 rounded text-xs font-light hover:bg-slate-700/50">30D</button>
-                      <button className="px-3 py-1 bg-slate-800/50 text-slate-400 rounded text-xs font-light hover:bg-slate-700/50">90D</button>
-                      <button className="px-3 py-1 bg-slate-800/50 text-slate-400 rounded text-xs font-light hover:bg-slate-700/50">1Y</button>
-                    </div>
-
-                    {/* Recent Performance Metrics */}
-                    <div className="space-y-3 pt-3 border-t border-slate-800">
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm font-light text-slate-400">7D Return</span>
-                        <span className="text-sm font-light text-teal-400">+2.4%</span>
+              {/* Real-time Data Feed */}
+              <Card className="bg-gray-900/50 border-gray-800">
+                <CardHeader>
+                  <CardTitle className="text-sm font-medium text-gray-300 uppercase tracking-wide">Live Data Feed</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 text-xs font-mono">
+                    {fundingRates.slice(0, 3).map((rate, index) => (
+                      <div key={rate.pair} className="flex justify-between items-center py-1 border-b border-gray-800 last:border-b-0">
+                        <span className="text-gray-300">{rate.pair}</span>
+                        <div className="flex items-center space-x-2">
+                          <span className={rate.kucoin > 0 ? 'text-green-400' : 'text-red-400'}>
+                            {formatRate(rate.kucoin)}
+                          </span>
+                          <span className="text-gray-600">|</span>
+                          <span className={rate.bybit > 0 ? 'text-green-400' : 'text-red-400'}>
+                            {formatRate(rate.bybit)}
+                          </span>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm font-light text-slate-400">30D Return</span>
-                        <span className="text-sm font-light text-teal-400">+8.1%</span>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm font-light text-slate-400">Best Day</span>
-                        <span className="text-sm font-light text-teal-400">+$127</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm font-light text-slate-400">Avg Daily</span>
-                        <span className="text-sm font-light text-teal-400">+$23</span>
-                      </div>
+                    ))}
                     </div>
                   </CardContent>
                 </Card>
 
-
-
-              </div>
             </div>
-
-
           </div>
-        </section>
-      )}
-
-      {/* Footer */}
-      <footer className="py-8 px-6 border-t border-slate-800/30">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-slate-500 font-light">
-            &copy; 2024 ZiroDelta. <span className="text-teal-400">Your success is our success.</span>
-          </p>
         </div>
-      </footer>
+      </div>
     </main>
   )
 } 

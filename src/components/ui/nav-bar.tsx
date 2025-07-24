@@ -14,7 +14,8 @@ const mainLinks: NavLink[] = [
   { href: '/manifesto', label: 'Manifesto' },
   { href: '/flywheel', label: 'Flywheel' },
   { href: '/roadmap', label: 'Roadmap' },
-  { href: '/staking', label: 'Staking' },
+  { href: '/merch', label: 'Merch' },
+  { href: '/staking', label: 'Funding Rates' },
 ]
 
 export function NavBar() {
