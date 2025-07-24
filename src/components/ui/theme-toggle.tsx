@@ -17,7 +17,7 @@ export function ThemeToggle() {
         else if (theme === 'dark') setTheme('system')
         else setTheme('light')
       }}
-      className="relative w-9 h-9 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+      className="relative w-9 h-9 rounded-md border border-input bg-transparent hover:bg-accent hover:text-accent-foreground"
     >
       <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
       <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
@@ -37,7 +37,7 @@ export function ThemeToggleWithText() {
         else if (theme === 'dark') setTheme('system')
         else setTheme('light')
       }}
-      className="relative gap-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+      className="relative gap-2 border border-input bg-transparent hover:bg-accent hover:text-accent-foreground"
     >
       {theme === 'light' && <Sun className="h-4 w-4" />}
       {theme === 'dark' && <Moon className="h-4 w-4" />}

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { Target, Circle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 
@@ -22,7 +23,7 @@ export function NavBar() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed top-0 w-full z-50 backdrop-blur-sm border-border/30 bg-gradient-to-b from-black via-black/50 to-transparent">
+    <nav className="fixed top-0 w-full z-50 backdrop-blur-sm border-border/30 dark:bg-gradient-to-b from-black via-black/50 to-transparent">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-4">
@@ -58,7 +59,17 @@ export function NavBar() {
             })}
           </div>
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center space-x-4">
+            <Button
+              variant="default"
+              className="bg-brand-emerald hover:bg-brand-emerald/80 text-white border-brand-emerald/50 hover:border-brand-emerald transition-all duration-300"
+            >
+              Connect Wallet
+              <div className="relative">
+                <Circle className="ml-2 h-4 w-4" />
+                <Circle className="h-4 w-4 absolute -left-0 top-0" />
+              </div>
+            </Button>
             <ThemeToggle />
           </div>
         </div>
