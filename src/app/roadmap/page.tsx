@@ -305,19 +305,19 @@ export default function Roadmap() {
        achievement: "Ensure platform scalability for rapid user growth"
      },
 
-         // PHASE 5: STAKING MECHANISM (September-October 2025)
+         // PHASE 5: FUNDING RATE TERMINAL (September-October 2025)
      { 
        id: 21, 
-       title: "Staking Smart Contract Dev", 
-       description: "Build ZDLT staking contracts", 
+       title: "Funding Rate API Integration", 
+       description: "Integrate KuCoin and Bybit APIs for real-time data", 
        date: "2025-09-07", 
        status: "planned", 
        priority: "critical", 
        assignee: "Backend Dev", 
        duration: "7 days", 
        type: "development",
-       expected: "Secure staking contracts with flexible lock periods and rewards",
-       achievement: "Enable ZDLT holders to earn from all platform revenue streams"
+       expected: "Real-time funding rate data from both exchanges with <1s latency",
+       achievement: "Enable comprehensive funding rate monitoring and arbitrage detection"
      },
      { 
        id: 22, 
@@ -334,29 +334,29 @@ export default function Roadmap() {
      },
      { 
        id: 23, 
-       title: "Revenue Sharing Algorithm", 
-       description: "Build automated reward distribution", 
+       title: "Arbitrage Detection Algorithm", 
+       description: "Build automated arbitrage opportunity detection", 
        date: "2025-09-14", 
        status: "planned", 
        priority: "critical", 
        assignee: "Backend Dev", 
        duration: "4 days", 
        type: "development",
-       expected: "Automated system distributing 100% auction revenue to stakers",
-       achievement: "Create passive income stream for ZDLT holders"
+       expected: "Automated detection of profitable funding rate spreads >0.5%",
+       achievement: "Identify high-probability arbitrage opportunities in real-time"
      },
      { 
        id: 24, 
-       title: "Staking UI Development", 
-       description: "Build user-friendly staking interface", 
+       title: "Terminal UI Development", 
+       description: "Build professional funding rate terminal interface", 
        date: "2025-09-18", 
        status: "planned", 
        priority: "high", 
        assignee: "Frontend Dev", 
        duration: "3 days", 
        type: "development",
-       expected: "Intuitive staking interface with real-time rewards tracking",
-       achievement: "Make staking accessible to non-technical users"
+       expected: "Bloomberg-style terminal with real-time data tables and analytics",
+       achievement: "Provide professional-grade funding rate monitoring tools"
      },
      { 
        id: 25, 
@@ -386,16 +386,16 @@ export default function Roadmap() {
      },
      { 
        id: 27, 
-       title: "Staking Beta Testing", 
-       description: "Internal testing of staking mechanism", 
+       title: "Terminal Beta Testing", 
+       description: "Internal testing of funding rate terminal", 
        date: "2025-09-26", 
        status: "planned", 
        priority: "high", 
        assignee: "Product Manager", 
        duration: "3 days", 
        type: "testing",
-       expected: "Comprehensive testing of staking, rewards, and withdrawal flows",
-       achievement: "Ensure flawless staking experience for mainnet launch"
+       expected: "Comprehensive testing of data accuracy and real-time performance",
+       achievement: "Ensure reliable funding rate intelligence for public launch"
      },
      { 
        id: 28, 
@@ -834,7 +834,7 @@ export default function Roadmap() {
               <span className="text-teal-400 font-medium">Roadmap</span>
               <Button asChild variant="ghost" className="bg-teal-400/10 hover:bg-teal-400/20 text-teal-400 border border-teal-400/30 transition-all duration-300 px-4 py-2 text-sm">
                 <Link href="/staking">
-                  Staking
+                  Funding Rates
                 </Link>
               </Button>
             </div>
