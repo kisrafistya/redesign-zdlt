@@ -183,21 +183,23 @@ export default function Home() {
             </div>
 
             {/* Solana Token */}
-            <div className="flex items-center space-x-2 border border-border/50 dark:border-brand-teal rounded-lg px-4 py-2">
-              <div className="flex items-center space-x-2">
-                <span className="text-xs text-muted-foreground font-light">Contract Address:</span>
-                <code className="text-xs text-primary font-mono">4PX31xRA1BaAyb2Js45ZKYp92VGWGp47yWeVs5CGVKbf</code>
+            <div className="flex items-center space-x-2">
+              <span className="text-xs text-brand-emerald dark:text-white font-light">Contract Address:</span>
+              <div className="flex items-center space-x-2 border border-border/50 dark:border-brand-teal rounded-lg px-3 py-1">
+                <code className="text-xs text-brand-emerald dark:text-white font-mono">
+                  4PX31xRA1BaAyb2Js45ZKYp92VGWGp47yWeVs5CGVKbf
+                </code>
+                <button
+                  onClick={() => {
+                    navigator.clipboard.writeText('4PX31xRA1BaAyb2Js45ZKYp92VGWGp47yWeVs5CGVKbf')
+                    // Optional: Add toast notification here
+                  }}
+                  className="text-brand-teal dark:text-white hover:text-primary transition-colors duration-300 text-xs"
+                  title="Copy contract address"
+                >
+                  Copy
+                </button>
               </div>
-              <button
-                onClick={() => {
-                  navigator.clipboard.writeText('4PX31xRA1BaAyb2Js45ZKYp92VGWGp47yWeVs5CGVKbf')
-                  // Optional: Add toast notification here
-                }}
-                className="text-muted-foreground hover:text-primary transition-colors duration-300 text-xs"
-                title="Copy contract address"
-              >
-                Copy
-              </button>
             </div>
           </div>
 
