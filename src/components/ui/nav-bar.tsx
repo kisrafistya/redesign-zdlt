@@ -22,7 +22,7 @@ export function NavBar() {
   const pathname = usePathname()
 
   return (
-    <nav className="fixed top-0 w-full z-50 backdrop-blur-sm border-b border-border/30">
+    <nav className="fixed top-0 w-full z-50 backdrop-blur-sm border-border/30 bg-gradient-to-b from-black via-black/50 to-transparent">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-4">
@@ -49,7 +49,7 @@ export function NavBar() {
                   key={link.href}
                   href={link.href}
                   className={`text-sm transition-colors duration-300 ${
-                    isActive ? 'text-primary font-medium' : 'text-muted-foreground hover:text-primary'
+                    isActive ? 'text-primary font-medium' : 'text-brand-pastel hover:text-primary'
                   }`}
                 >
                   {link.label}

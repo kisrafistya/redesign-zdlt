@@ -7,10 +7,14 @@ import { Card, CardContent } from '@/components/ui/card'
 import { NavBar } from '@/components/ui/nav-bar'
 import Link from 'next/link'
 import { useRef } from 'react'
+import { useTheme } from '@/lib/theme-provider'
 
 export default function Home() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref })
+
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
 
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%'])
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0.6])
@@ -50,36 +54,36 @@ export default function Home() {
             transition={{ duration: 1, ease: 'easeOut' }}
             className="max-w-4xl mx-auto"
           >
-            <div className="mb-8">
-              <span className="inline-block px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-light dark:text-brand-emerald text-sm font-light tracking-wide">
+            <div className="mb-4">
+              <span className="inline-block px-4 bg-primary/10 rounded-full text-light dark:text-brand-emerald text-sm font-light tracking-wide">
                 The Future of Conditional Finance
               </span>
             </div>
 
-            <h1 className="text-6xl md:text-8xl font-extralight mb-8 leading-tight">
+            <h1 className="text-6xl md:text-8xl font-extralight leading-tight">
               {/* <h1 className="text-3xl font-bold underline">Hello world!</h1> */}
               <span className="block font-accent text-mono-black dark:text-brand-emerald">Intelligence Meets</span>
               <span className="block font-accent text-mono-black dark:text-brand-emerald">Innovation</span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-muted-foreground dark:text-brand-teal mb-12 max-w-3xl mx-auto font-light leading-relaxed">
+            <p className="text-xl md:text-xl text-muted-foreground dark:text-brand-teal max-w-3xl mx-auto font-light leading-relaxed mb-36">
               Revolutionary DeFi protocol for everyone.
               <br />
               Exclusive trading access for the elite.
             </p>
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-              <Button asChild size="lg" className="group">
+              <Button asChild size="lg" className="group bg-brand-emerald">
                 <Link href="/protocol">
                   <span>Explore Protocol</span>
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform dark:text-white" />
                 </Link>
               </Button>
 
-              <Button asChild variant="outline" size="lg">
+              <Button asChild variant={isDark ? 'default' : 'outline'} size="lg" className="dark:bg-black">
                 <Link href="/bot">
                   <span>Elite Access</span>
-                  <ArrowRight className="ml-2 w-4 h-4" />
+                  <ArrowRight className="ml-2 w-4 h-4 dark:text-white" />
                 </Link>
               </Button>
             </div>
