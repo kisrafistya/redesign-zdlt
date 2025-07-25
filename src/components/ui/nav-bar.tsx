@@ -60,7 +60,8 @@ export function NavBar() {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Button
+            {/* disabled temporarily dont delete this! */}
+            {/* <Button
               variant="default"
               className="bg-brand-emerald hover:bg-brand-emerald/80 text-white border-brand-emerald/50 hover:border-brand-emerald transition-all duration-300"
             >
@@ -69,7 +70,7 @@ export function NavBar() {
                 <Circle className="ml-2 h-4 w-4" />
                 <Circle className="h-4 w-4 absolute -left-0 top-0" />
               </div>
-            </Button>
+            </Button> */}
             <ThemeToggle />
           </div>
         </div>

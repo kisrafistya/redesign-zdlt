@@ -108,34 +108,190 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-24 px-6 border-y border-border/30 features-section">
         <div className="max-w-7xl mx-auto">
+          {/* Community Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="flex justify-center mb-8"
+          >
+            <div className="flex flex-col items-center">
+              <img
+                src="/zdltpeeps.svg"
+                alt="ZiroDelta Community"
+                className="w-40 h-auto shadow-brand-emerald/10 dark:shadow-brand-emerald/20"
+              />
+              <div className="border-b-2 border-brand-emerald w-72"></div>
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, staggerChildren: 0.2 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-extralight font-accent text-brand-emerald dark:text-white text-center">
+              Join the community shaping
+              <br />
+              <span>the future of conditional finance</span>
+            </h2>
+          </motion.div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="bg-card/50 backdrop-blur border-primary/10">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-light mb-4">Conditional Finance</h3>
-                <p className="text-muted-foreground font-light leading-relaxed">
-                  Trade perpetual funding rate tokens (PFRT) and negative funding rate tokens (NFRT) with unprecedented
-                  flexibility.
-                </p>
-              </CardContent>
-            </Card>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="h-full"
+            >
+              <Card className="bg-teal-700 dark:bg-teal-800 text-white h-full flex flex-col rounded-2xl border-0 overflow-hidden">
+                <CardContent className="p-8 flex flex-col h-full">
+                  <div className="w-16 h-16 bg-white/10 rounded-xl mb-6 flex items-center justify-center">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
 
-            <Card className="bg-card/50 backdrop-blur border-primary/10">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-light mb-4">Elite Trading Bot</h3>
-                <p className="text-muted-foreground font-light leading-relaxed">
-                  Access our proprietary trading bot through exclusive auctions and maximize your trading potential.
-                </p>
-              </CardContent>
-            </Card>
+                  <h3 className="text-2xl font-semibold mb-2">The Builders</h3>
+                  <p className="text-teal-100 mb-6 text-sm">Open Access</p>
 
-            <Card className="bg-card/50 backdrop-blur border-primary/10">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-light mb-4">Staking Rewards</h3>
-                <p className="text-muted-foreground font-light leading-relaxed">
-                  Stake ZDLT tokens to earn a share of protocol revenue and unlock enhanced trading capabilities.
-                </p>
-              </CardContent>
-            </Card>
+                  <p className="text-white/90 mb-8 flex-grow">
+                    Visionary developers and data scientists crafting AI-driven funding-rate intelligence for the
+                    community.
+                  </p>
+
+                  <div className="space-y-3 mb-8">
+                    <div className="flex items-center text-sm text-white/90">
+                      <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
+                      <span>Revolutionary PFRT/NFRT tokens</span>
+                    </div>
+                    <div className="flex items-center text-sm text-white/90">
+                      <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
+                      <span>Universal access to protocols</span>
+                    </div>
+                    <div className="flex items-center text-sm text-white/90">
+                      <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
+                      <span>Zero liquidation risk</span>
+                    </div>
+                  </div>
+
+                  <button className="w-full bg-white text-teal-700 py-3 px-6 rounded-xl font-medium hover:bg-white/90 transition-colors flex items-center justify-between">
+                    <span>Explore Protocol</span>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </button>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="h-full"
+            >
+              <Card className="bg-gray-100 dark:bg-gray-200 text-gray-900 h-full flex flex-col rounded-2xl border-0 overflow-hidden">
+                <CardContent className="p-8 flex flex-col h-full">
+                  <div className="w-16 h-16 bg-gray-300 rounded-xl mb-6 flex items-center justify-center">
+                    <svg className="w-8 h-8 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      />
+                    </svg>
+                  </div>
+
+                  <h3 className="text-2xl font-semibold mb-2 text-teal-700">Elite Bot</h3>
+                  <p className="text-gray-600 mb-6 text-sm">5 Slots Monthly</p>
+
+                  <p className="text-gray-700 mb-8 flex-grow">
+                    Professional arbitrage trading with intelligent scarcity. Elite access creates sustainable value.
+                  </p>
+
+                  <div className="space-y-3 mb-8">
+                    <div className="flex items-center text-sm text-gray-700">
+                      <div className="w-1.5 h-1.5 bg-gray-600 rounded-full mr-3"></div>
+                      <span>Conditional funding rate tokens</span>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-700">
+                      <div className="w-1.5 h-1.5 bg-gray-600 rounded-full mr-3"></div>
+                      <span>Universal access protocols</span>
+                    </div>
+                    <div className="flex items-center text-sm text-gray-700">
+                      <div className="w-1.5 h-1.5 bg-gray-600 rounded-full mr-3"></div>
+                      <span>Zero liquidation risk</span>
+                    </div>
+                  </div>
+
+                  <button className="w-full bg-teal-700 text-white py-3 px-6 rounded-xl font-medium hover:bg-teal-800 transition-colors flex items-center justify-between">
+                    <span>Join Elite</span>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </button>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="h-full"
+            >
+              <Card className="bg-teal-700 dark:bg-teal-800 text-white h-full flex flex-col rounded-2xl border-0 overflow-hidden">
+                <CardContent className="p-8 flex flex-col h-full">
+                  <div className="w-16 h-16 bg-white/10 rounded-xl mb-6 flex items-center justify-center">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                      />
+                    </svg>
+                  </div>
+
+                  <h3 className="text-2xl font-semibold mb-2">The Pioneers</h3>
+                  <p className="text-teal-100 mb-6 text-sm">Early Access</p>
+
+                  <p className="text-white/90 mb-8 flex-grow">
+                    Early adopters exploring PFRT and NFRT primitives. Turning funding-rate volatility into sustainable
+                    yield.
+                  </p>
+
+                  <div className="space-y-3 mb-8">
+                    <div className="flex items-center text-sm text-white/90">
+                      <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
+                      <span>Advanced trading strategies</span>
+                    </div>
+                    <div className="flex items-center text-sm text-white/90">
+                      <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
+                      <span>Collective intelligence algorithms</span>
+                    </div>
+                    <div className="flex items-center text-sm text-white/90">
+                      <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
+                      <span>Sustainable yield generation</span>
+                    </div>
+                  </div>
+
+                  <button className="w-full bg-white text-teal-700 py-3 px-6 rounded-xl font-medium hover:bg-white/90 transition-colors flex items-center justify-between">
+                    <span>Start Pioneering</span>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </button>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </section>
