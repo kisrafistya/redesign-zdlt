@@ -66,13 +66,13 @@ export default function Home() {
               <span className="block font-accent text-mono-black dark:text-brand-emerald">Innovation</span>
             </h1>
 
-            <p className="text-xl md:text-xl text-white dark:text-brand-teal max-w-3xl mx-auto font-light leading-relaxed mb-36">
+            <p className="text-xl md:text-xl text-white dark:text-brand-teal max-w-3xl mx-auto font-light leading-relaxed">
               Harvest funding-rate chaos into community-owned yield.
               <br />
               Market-neutral. Oracle-driven. Transparent on Solana.
             </p>
 
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            {/* <div className="flex flex-col md:flex-row items-center justify-center gap-4">
               <Button asChild size="lg" className="group bg-brand-emerald">
                 <Link href="/protocol">
                   <span>Explore Protocol</span>
@@ -103,7 +103,7 @@ export default function Home() {
                   <ArrowRight className="ml-2 w-4 h-4 dark:text-white" />
                 </Link>
               </Button>
-            </div>
+            </div> */}
           </motion.div>
         </div>
 
@@ -166,22 +166,16 @@ export default function Home() {
             >
               <Card className="bg-teal-700 dark:bg-teal-800 text-white h-full flex flex-col rounded-2xl border-0 overflow-hidden">
                 <CardContent className="p-8 flex flex-col h-full">
-                  <div className="w-16 h-16 bg-white/10 rounded-xl mb-6 flex items-center justify-center">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
+                  <div className="w-20 h-20 bg-white/10 rounded-xl mb-6 flex items-center justify-center p-4">
+                    <img src="/features/protocol.svg" alt="protocol" className="w-32 h-32 dark:hidden" />
                   </div>
 
                   <h3 className="text-2xl font-semibold mb-2">Protocol</h3>
                   <p className="text-teal-100 mb-6 text-sm">Funding-Rate Intelligence</p>
 
                   <p className="text-white/90 mb-8 flex-grow">
-                    Solana-native smart contracts capture billions in funding fees via oracle-driven automation and conditional tokenization.
+                    Solana-native smart contracts capture billions in funding fees via oracle-driven automation and
+                    conditional tokenization.
                   </p>
 
                   <div className="space-y-3 mb-8">
@@ -217,22 +211,16 @@ export default function Home() {
             >
               <Card className="bg-gray-100 dark:bg-gray-200 text-gray-900 h-full flex flex-col rounded-2xl border-0 overflow-hidden">
                 <CardContent className="p-8 flex flex-col h-full">
-                  <div className="w-16 h-16 bg-gray-300 rounded-xl mb-6 flex items-center justify-center">
-                    <svg className="w-8 h-8 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 10V3L4 14h7v7l9-11h-7z"
-                      />
-                    </svg>
+                  <div className="w-20 h-20 bg-gray-300 rounded-xl mb-6 flex items-center justify-center p-4">
+                    <img src="/features/bot.svg" alt="bot" className="w-32 h-32 dark:hidden" />
                   </div>
 
                   <h3 className="text-2xl font-semibold mb-2 text-teal-700">Trading Bot</h3>
                   <p className="text-gray-600 mb-6 text-sm">Tier-Based Access</p>
 
                   <p className="text-gray-700 mb-8 flex-grow">
-                    AI-powered arbitrage bot executes funding-rate strategies across exchanges. Access scales with your ZDLT holdings.
+                    AI-powered arbitrage bot executes funding-rate strategies across exchanges. Access scales with your
+                    ZDLT holdings.
                   </p>
 
                   <div className="space-y-3 mb-8">
@@ -263,27 +251,21 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}  
+              transition={{ duration: 0.6, delay: 0.3 }}
               className="h-full"
             >
               <Card className="bg-teal-700 dark:bg-teal-800 text-white h-full flex flex-col rounded-2xl border-0 overflow-hidden">
                 <CardContent className="p-8 flex flex-col h-full">
-                  <div className="w-16 h-16 bg-white/10 rounded-xl mb-6 flex items-center justify-center">
-                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                      />
-                    </svg>
+                  <div className="w-20 h-20 bg-white/10 rounded-xl mb-6 flex items-center justify-center p-4">
+                    <img src="/features/merch.svg" alt="merch" className="w-32 h-32 dark:hidden" />
                   </div>
 
                   <h3 className="text-2xl font-semibold mb-2">Community</h3>
                   <p className="text-teal-100 mb-6 text-sm">Merchandise & More</p>
 
                   <p className="text-white/90 mb-8 flex-grow">
-                    Show your support for funding-rate intelligence with exclusive ZiroDelta merchandise and community perks.
+                    Show your support for funding-rate intelligence with exclusive ZiroDelta merchandise and community
+                    perks.
                   </p>
 
                   <div className="space-y-3 mb-8">
