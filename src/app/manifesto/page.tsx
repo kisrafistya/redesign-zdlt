@@ -121,7 +121,7 @@ export default function ManifestoPage() {
               viewport={{ once: true }}
               className="text-center py-8"
             >
-              <div className="w-32 h-px bg-brand-emerald/50 mx-auto mb-8" />
+              <div className="w-32 h-px dark:bg-brand-emerald/50 bg-white mx-auto mb-8" />
               {isDark ? (
                 <img src="/flower-green.svg" alt="ZiroDelta Community" className="w-36 h-auto mx-auto" />
               ) : (
