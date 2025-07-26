@@ -66,7 +66,7 @@ export default function Home() {
               <span className="block font-accent text-mono-black dark:text-brand-emerald">Innovation</span>
             </h1>
 
-            <p className="text-xl md:text-xl text-white dark:text-brand-teal max-w-3xl mx-auto font-light leading-relaxed">
+            <p className="text-xl md:text-xl text-white dark:text-brand-teal max-w-3xl mx-auto font-light leading-relaxed dark:bg-white/5 dark:rounded-lg dark:p-4 dark:backdrop-blur-sm">
               Harvest funding-rate chaos into community-owned yield.
               <br />
               Market-neutral. Oracle-driven. Transparent on Solana.
