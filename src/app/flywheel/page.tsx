@@ -10,19 +10,19 @@ import { useTheme } from '@/lib/theme-provider'
 
 const PillarCard = ({ num, title, description }: { num: number; title: string; description: string }) => {
   return (
-    <div className="relative w-[90vw] md:w-[70vw] lg:w-[45vw] flex-shrink-0 p-8 sm:p-12 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-800/50 rounded-xl shadow-2xl shadow-brand-emerald/5 overflow-hidden">
+    <div className="relative w-[90vw] md:w-[70vw] lg:w-[45vw] flex-shrink-0 p-8 sm:p-12 bg-brand-emerald dark:bg-brand-pastel/50 rounded-xl shadow-2xl overflow-hidden border border-brand-emerald/20">
       {/* Retro Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:36px_36px] [mask-image:radial-gradient(ellipse_at_center,black_10%,transparent_80%)] dark:[mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)] opacity-50 dark:opacity-100"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff12_1px,transparent_1px),linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)] bg-[size:36px_36px] [mask-image:radial-gradient(ellipse_at_center,white_10%,transparent_80%)] opacity-30"></div>
 
       <div className="text-center relative z-10">
         <div className="mb-8">
-          <span className="text-6xl font-accent font-bold text-brand-emerald/80 dark:text-brand-emerald/90">{`0${num}`}</span>
-          <div className="w-20 h-px bg-brand-emerald/30 mx-auto mt-4"></div>
+          <span className="text-6xl font-accent font-bold text-white/80 dark:text-white/90">{`0${num}`}</span>
+          <div className="w-20 h-px bg-white/20 mx-auto mt-4"></div>
         </div>
 
-        <h3 className="text-4xl md:text-5xl font-accent mb-6 text-slate-800 dark:text-white">{title}</h3>
+        <h3 className="text-4xl md:text-5xl font-accent mb-6 text-white dark:text-white">{title}</h3>
 
-        <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-lg mx-auto">
+        <p className="text-lg md:text-xl text-white/80 dark:text-white/80 leading-relaxed max-w-lg mx-auto">
           {description}
         </p>
       </div>
@@ -256,7 +256,7 @@ export default function FlywheelPage() {
             A Virtuous Cycle of Value
           </h2>
 
-          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-12 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-12 max-w-3xl mx-auto font-medium">
             This self-perpetuating loop ensures that as ZiroDelta grows, the value returned to our community and token
             holders grows with it. Participation doesn't just grant access; it fuels the entire engine.
           </p>

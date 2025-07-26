@@ -39,7 +39,9 @@ export function NavBar() {
                   key={link.href}
                   href={link.href}
                   className={`text-sm transition-colors duration-300 ${
-                    isActive ? 'text-brand-emerald font-semibold' : 'dark:text-brand-pastel hover:text-primary'
+                    isActive
+                      ? 'text-brand-emerald dark:text-white font-semibold'
+                      : 'dark:text-brand-pastel/80 hover:text-primary'
                   }`}
                 >
                   {link.label}

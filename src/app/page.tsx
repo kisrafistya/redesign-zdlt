@@ -302,7 +302,7 @@ export default function Home() {
             <div className="flex items-center space-x-4 mb-8 md:mb-0">
               <Link href="/" className="flex items-center space-x-4">
                 <div>
-                  <img src="/zirolight.svg" alt="ZiroDelta" className="w-32 h-32 " />
+                  <img src="/zirolight.svg" alt="ZiroDelta" className="w-32 h-32 dark:hidden" />
                   <img src="/zirodark.svg" alt="ZiroDelta" className="w-32 h-32 hidden dark:block" />
                 </div>
               </Link>
