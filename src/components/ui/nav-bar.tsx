@@ -15,8 +15,6 @@ const mainLinks: NavLink[] = [
   { href: '/manifesto', label: 'Manifesto' },
   { href: '/flywheel', label: 'Flywheel' },
   { href: '/roadmap', label: 'Roadmap' },
-  { href: '/merch', label: 'Merch' },
-  { href: '/staking', label: 'Funding Rates' },
 ]
 
 export function NavBar() {
@@ -36,16 +34,7 @@ export function NavBar() {
           <div className="hidden md:flex items-center border dark:border-0  bg-[#F4F4F4] dark:bg-transparent rounded-lg pl-2 space-x-8 absolute left-1/2 transform -translate-x-1/2">
             {mainLinks.map(link => {
               const isActive = pathname === link.href
-              return link.href === '/staking' ? (
-                <Button
-                  key={link.href}
-                  asChild
-                  variant="ghost"
-                  className="bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 transition-all duration-300 px-4 py-2 text-sm"
-                >
-                  <Link href={link.href}>{link.label}</Link>
-                </Button>
-              ) : (
+              return (
                 <Link
                   key={link.href}
                   href={link.href}

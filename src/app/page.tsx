@@ -56,7 +56,7 @@ export default function Home() {
           >
             <div className="mb-4">
               <span className="inline-block px-4 bg-primary/10 rounded-full text-light dark:text-brand-emerald text-sm font-light tracking-wide">
-                The Future of Conditional Finance
+                Funding-Rate Intelligence, Solana Speed
               </span>
             </div>
 
@@ -67,9 +67,9 @@ export default function Home() {
             </h1>
 
             <p className="text-xl md:text-xl text-white dark:text-brand-teal max-w-3xl mx-auto font-light leading-relaxed mb-36">
-              Revolutionary DeFi protocol for everyone.
+              Harvest funding-rate chaos into community-owned yield.
               <br />
-              Exclusive trading access for the elite.
+              Market-neutral. Oracle-driven. Transparent on Solana.
             </p>
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-4">
@@ -87,7 +87,19 @@ export default function Home() {
                 className={`${isDark ? 'bg-black' : 'bg-transparent'}`}
               >
                 <Link href="/bot">
-                  <span>Elite Access</span>
+                  <span>Access Bot</span>
+                  <ArrowRight className="ml-2 w-4 h-4 dark:text-white" />
+                </Link>
+              </Button>
+
+              <Button
+                asChild
+                variant={isDark ? 'default' : 'outline'}
+                size="lg"
+                className={`${isDark ? 'bg-black' : 'bg-transparent'}`}
+              >
+                <Link href="/merch">
+                  <span>Shop Merch</span>
                   <ArrowRight className="ml-2 w-4 h-4 dark:text-white" />
                 </Link>
               </Button>
@@ -131,9 +143,9 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-extralight font-accent text-brand-emerald dark:text-white text-center">
-              Join the community shaping
+              Join the community harvesting
               <br />
-              <span>the future of conditional finance</span>
+              <span>the rate, sharing the wealth</span>
             </h2>
           </motion.div>
 
@@ -157,26 +169,25 @@ export default function Home() {
                     </svg>
                   </div>
 
-                  <h3 className="text-2xl font-semibold mb-2">The Builders</h3>
-                  <p className="text-teal-100 mb-6 text-sm">Open Access</p>
+                  <h3 className="text-2xl font-semibold mb-2">Protocol</h3>
+                  <p className="text-teal-100 mb-6 text-sm">Funding-Rate Intelligence</p>
 
                   <p className="text-white/90 mb-8 flex-grow">
-                    Visionary developers and data scientists crafting AI-driven funding-rate intelligence for the
-                    community.
+                    Solana-native smart contracts capture billions in funding fees via oracle-driven automation and conditional tokenization.
                   </p>
 
                   <div className="space-y-3 mb-8">
                     <div className="flex items-center text-sm text-white/90">
                       <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
-                      <span>Revolutionary PFRT/NFRT tokens</span>
+                      <span>PFRT/NFRT sentiment tokens</span>
                     </div>
                     <div className="flex items-center text-sm text-white/90">
                       <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
-                      <span>Universal access to protocols</span>
+                      <span>Market-neutral yield generation</span>
                     </div>
                     <div className="flex items-center text-sm text-white/90">
                       <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
-                      <span>Zero liquidation risk</span>
+                      <span>Transparent on-chain execution</span>
                     </div>
                   </div>
 
@@ -209,30 +220,30 @@ export default function Home() {
                     </svg>
                   </div>
 
-                  <h3 className="text-2xl font-semibold mb-2 text-teal-700">Elite Bot</h3>
-                  <p className="text-gray-600 mb-6 text-sm">5 Slots Monthly</p>
+                  <h3 className="text-2xl font-semibold mb-2 text-teal-700">Trading Bot</h3>
+                  <p className="text-gray-600 mb-6 text-sm">Tier-Based Access</p>
 
                   <p className="text-gray-700 mb-8 flex-grow">
-                    Professional arbitrage trading with intelligent scarcity. Elite access creates sustainable value.
+                    AI-powered arbitrage bot executes funding-rate strategies across exchanges. Access scales with your ZDLT holdings.
                   </p>
 
                   <div className="space-y-3 mb-8">
                     <div className="flex items-center text-sm text-gray-700">
                       <div className="w-1.5 h-1.5 bg-gray-600 rounded-full mr-3"></div>
-                      <span>Conditional funding rate tokens</span>
+                      <span>Automated 8-hour rebalancing</span>
                     </div>
                     <div className="flex items-center text-sm text-gray-700">
                       <div className="w-1.5 h-1.5 bg-gray-600 rounded-full mr-3"></div>
-                      <span>Universal access protocols</span>
+                      <span>Multi-exchange arbitrage</span>
                     </div>
                     <div className="flex items-center text-sm text-gray-700">
                       <div className="w-1.5 h-1.5 bg-gray-600 rounded-full mr-3"></div>
-                      <span>Zero liquidation risk</span>
+                      <span>Profit sharing to community</span>
                     </div>
                   </div>
 
                   <button className="w-full bg-teal-700 text-white py-3 px-6 rounded-xl font-medium hover:bg-teal-800 transition-colors flex items-center justify-between">
-                    <span>Join Elite</span>
+                    <span>Access Bot</span>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -244,7 +255,7 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.3 }}  
               className="h-full"
             >
               <Card className="bg-teal-700 dark:bg-teal-800 text-white h-full flex flex-col rounded-2xl border-0 overflow-hidden">
@@ -260,31 +271,30 @@ export default function Home() {
                     </svg>
                   </div>
 
-                  <h3 className="text-2xl font-semibold mb-2">The Pioneers</h3>
-                  <p className="text-teal-100 mb-6 text-sm">Early Access</p>
+                  <h3 className="text-2xl font-semibold mb-2">Community</h3>
+                  <p className="text-teal-100 mb-6 text-sm">Merchandise & More</p>
 
                   <p className="text-white/90 mb-8 flex-grow">
-                    Early adopters exploring PFRT and NFRT primitives. Turning funding-rate volatility into sustainable
-                    yield.
+                    Show your support for funding-rate intelligence with exclusive ZiroDelta merchandise and community perks.
                   </p>
 
                   <div className="space-y-3 mb-8">
                     <div className="flex items-center text-sm text-white/90">
                       <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
-                      <span>Advanced trading strategies</span>
+                      <span>Exclusive branded merchandise</span>
                     </div>
                     <div className="flex items-center text-sm text-white/90">
                       <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
-                      <span>Collective intelligence algorithms</span>
+                      <span>Community recognition rewards</span>
                     </div>
                     <div className="flex items-center text-sm text-white/90">
                       <div className="w-1.5 h-1.5 bg-white rounded-full mr-3"></div>
-                      <span>Sustainable yield generation</span>
+                      <span>Early access to new features</span>
                     </div>
                   </div>
 
                   <button className="w-full bg-white text-teal-700 py-3 px-6 rounded-xl font-medium hover:bg-white/90 transition-colors flex items-center justify-between">
-                    <span>Start Pioneering</span>
+                    <span>Shop Merch</span>
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
