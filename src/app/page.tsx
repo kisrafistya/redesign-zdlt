@@ -360,7 +360,7 @@ export default function Home() {
           </div>
 
           <div className="mt-12 pt-8 border-t border-border/30 text-center text-brand-emerald dark:text-white font-light">
-            <p>&copy; 2024 ZiroDelta. Intelligence meets innovation.</p>
+            <p>&copy; 2025 ZiroDelta. Intelligence meets innovation.</p>
           </div>
         </div>
       </footer>

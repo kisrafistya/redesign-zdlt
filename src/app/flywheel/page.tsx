@@ -1,516 +1,305 @@
 'use client'
 
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { ArrowRight, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { motion, useTime, useTransform } from 'framer-motion'
-import { ArrowRight, Zap, TrendingUp, Users, Coins, Activity } from 'lucide-react'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useRef } from 'react'
+import { NavBar } from '@/components/ui/nav-bar'
+import { useTheme } from '@/lib/theme-provider'
 
-function FlywheelNode({ stream, index, setHoveredSection, hoveredSection }: any) {
-  const time = useTime()
-  const initialAngle = index * 72
-  // Slower rotation (30 seconds per orbit)
-  const rotate = useTransform(time, [0, 90000], [initialAngle, initialAngle + 360], { clamp: false })
+const Pillar = ({
+  num,
+  title,
+  description,
+  isDark,
+  index,
+}: {
+  num: number
+  title: string
+  description: string
+  isDark: boolean
+  index: number
+}) => {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start 0.8', 'end 0.2'],
+  })
 
-  // Smaller radius
-  const x = useTransform(rotate, v => `${260 * Math.cos((v * Math.PI) / 180)}px`)
-  const y = useTransform(rotate, v => `${260 * Math.sin((v * Math.PI) / 180)}px`)
+  // More controlled opacity and position animations
+  const opacity = useTransform(
+    scrollYProgress, 
+    [0, 0.3, 0.7, 1], 
+    [0, 1, 1, 0]
+  )
+  
+  const y = useTransform(
+    scrollYProgress, 
+    [0, 0.3, 0.7, 1], 
+    [50, 0, 0, -50]
+  )
 
-  const { icon: Icon, color, percentage, title, description } = stream
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.7, 1],
+    [0.8, 1, 1, 0.8]
+  )
 
   return (
-    <motion.div
-      className="absolute cursor-pointer"
-      style={{
-        left: '50%',
-        top: '50%',
-        x: x,
-        y: y,
-        translateX: '-50%',
-        translateY: '-50%',
-      }}
-      onMouseEnter={() => setHoveredSection(index)}
-      onMouseLeave={() => setHoveredSection(null)}
-    >
+    <div ref={ref} className={`h-screen flex items-center justify-center relative`}>
       <motion.div
-        className={`relative bg-black/95 backdrop-blur-sm border-2 rounded-2xl p-2 w-[130px] transition-all duration-300 ${
-          hoveredSection === index ? 'border-teal-400/60 shadow-2xl shadow-teal-400/20' : 'border-slate-700/50'
-        }`}
-        whileHover={{
-          scale: 1.2,
-          y: -20,
-          boxShadow: '0 25px 50px rgba(56, 178, 172, 0.4)',
-        }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        style={{ opacity, y, scale }}
+        className="text-center px-6 max-w-2xl"
       >
-        {/* Icon */}
-        <div className={`w-7 h-7 rounded-lg bg-gradient-to-r ${color} flex items-center justify-center mb-1 mx-auto`}>
-          <Icon className="w-4 h-4 text-black" />
-        </div>
-
-        {/* Content */}
-        <div className="text-center">
-          <div className="text-base font-light text-teal-400 mb-1">{percentage}</div>
-          <div className="text-[11px] font-medium text-white mb-1">{title}</div>
-          <div className="text-[9px] text-slate-400 font-light leading-tight">{description}</div>
+        <motion.div 
+          className="w-20 h-20 rounded-full border-2 border-brand-emerald/40 flex items-center justify-center mx-auto mb-8 bg-brand-emerald/5"
+          whileHover={{ scale: 1.1, borderColor: 'rgb(16 185 129)' }}
+          transition={{ duration: 0.3 }}
+        >
+          <span className="text-3xl font-bold text-brand-emerald">{num}</span>
+        </motion.div>
+        
+        <h3 className="text-4xl md:text-5xl font-accent mb-6 text-slate-800 dark:text-white">
+          {title}
+        </h3>
+        
+        <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-lg mx-auto">
+          {description}
+        </p>
+        
+        {/* Subtle progress indicator */}
+        <div className="flex justify-center mt-8 space-x-2">
+          {[0, 1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                i === index 
+                  ? 'bg-brand-emerald scale-125' 
+                  : 'bg-brand-emerald/20'
+              }`}
+            />
+          ))}
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   )
 }
 
-export default function Flywheel() {
-  const [hoveredSection, setHoveredSection] = useState<number | null>(null)
-  const [isClient, setIsClient] = useState(false)
+export default function FlywheelPage() {
+  const heroRef = useRef(null)
+  const { scrollYProgress: heroProgress } = useScroll({ 
+    target: heroRef,
+    offset: ['start start', 'end start']
+  })
+  
+  const { theme } = useTheme()
+  const isDark = theme === 'dark'
 
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+  // Smoother parallax for hero
+  const heroY = useTransform(heroProgress, [0, 1], ['0%', '30%'])
+  const heroOpacity = useTransform(heroProgress, [0, 0.5, 1], [1, 0.7, 0.3])
 
-  const revenueStreams = [
+  // Controlled wheel rotation based on overall scroll
+  const wheelRotate = useTransform(heroProgress, [0, 1], [0, 180])
+
+  const pillars = [
     {
-      title: 'Auction Revenue',
-      percentage: '20%',
-      icon: Zap,
-      description: 'To ZDLT Stakers',
-      color: 'from-yellow-400 to-orange-400',
+      num: 1,
+      title: 'Bot Revenue',
+      description: 'Strategic partnerships generate revenue streams that fuel development and systematic token buybacks, creating sustainable growth.',
     },
     {
-      title: 'Bot Subscriptions',
-      percentage: '20%',
-      icon: TrendingUp,
-      description: 'Monthly bot access fees',
-      color: 'from-blue-400 to-cyan-400',
+      num: 2,
+      title: 'Merch Flywheel',
+      description: 'Exclusive merchandise rewards for token holders who participate in burn mechanisms, strengthening community engagement.',
     },
     {
-      title: 'ZDLT Demand',
-      percentage: '10x',
-      icon: Users,
-      description: 'Trading power multiplier',
-      color: 'from-purple-400 to-pink-400',
+      num: 3,
+      title: 'Protocol Revenue',
+      description: 'Transaction fees are systematically allocated to ZDLT buybacks and burns, reducing supply and enhancing token value.',
     },
     {
-      title: 'Prop Trading',
-      percentage: '50%',
-      icon: Activity,
-      description: 'Arbitrage profit sharing',
-      color: 'from-green-400 to-emerald-400',
-    },
-    {
-      title: 'Protocol Fees',
-      percentage: '50%',
-      icon: Coins,
-      description: 'For ZDLT Buybacks',
-      color: 'from-teal-400 to-cyan-400',
+      num: 4,
+      title: 'Ecosystem Growth',
+      description: 'Expanding user adoption drives higher transaction volume, amplifying the effects of all revenue pillars exponentially.',
     },
   ]
 
   return (
-    <main className="min-h-screen bg-black text-white overflow-hidden">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-black/95 backdrop-blur-sm border-b border-slate-800/30">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <img src="/zirodelta-logo.png" alt="ZiroDelta" className="w-10 h-10" />
-              <span className="text-2xl font-light tracking-wide">ZiroDelta</span>
-            </div>
+    <main className="min-h-screen text-foreground">
+      <NavBar />
 
-            <div className="hidden md:flex items-center space-x-8 text-sm">
-              <a href="/manifesto" className="text-slate-400 hover:text-teal-400 transition-colors duration-300">
-                Manifesto
-              </a>
-              <span className="text-teal-400 font-medium">Flywheel</span>
-              <a href="/roadmap" className="text-slate-400 hover:text-teal-400 transition-colors duration-300">
-                Roadmap
-              </a>
-              <Button
-                asChild
-                variant="ghost"
-                className="bg-teal-400/10 hover:bg-teal-400/20 text-teal-400 border border-teal-400/30 transition-all duration-300 px-4 py-2 text-sm"
-              >
-                <Link href="/staking">Funding Rates</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 relative">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-center mb-16"
-          >
-            <h1 className="text-6xl md:text-8xl font-extralight mb-8 leading-tight">
-              Economic
-              <span className="block text-teal-400">Flywheel</span>
-            </h1>
-
-            <p className="text-xl text-slate-300 max-w-3xl mx-auto font-light leading-relaxed">
-              A self-reinforcing revenue ecosystem where every stream strengthens the others
-            </p>
+      {/* Hero Section - Fixed height to prevent layout issues */}
+      <section ref={heroRef} className="relative h-screen overflow-hidden">
+        <div className="absolute inset-0">
+          {/* Simplified background without particles */}
+          <motion.div style={{ y: heroY, opacity: heroOpacity }} className="absolute inset-0 z-0">
+            <div className="w-full h-full bg-gradient-to-br from-brand-emerald/10 via-white to-brand-emerald/5 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900" />
           </motion.div>
+          <div className="absolute inset-0 bg-white/20 dark:bg-black/40 z-[1]" />
 
-          {/* Interactive Flywheel Visualization */}
-          <div className="relative flex items-center justify-center min-h-[800px]">
-            {/* Background Effects */}
-            <div className="absolute inset-0">
-              <motion.div
-                animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.1, 0.2, 0.1],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-                className="w-full h-full bg-gradient-to-br from-teal-400/10 via-transparent to-cyan-400/10 rounded-full blur-3xl"
-              />
-            </div>
-
-            {/* Outer Ring with Orbital Dots */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 40,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-              className="absolute w-[600px] h-[600px] border border-teal-400/20 rounded-full"
-            >
-              {/* Orbital Dots */}
-              {[...Array(16)].map((_, i) => (
+          {/* Split layout container */}
+          <div className="absolute inset-0 flex items-center z-20">
+            <div className="container mx-auto px-6 lg:px-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
+                
+                {/* Left side - Text content */}
                 <motion.div
-                  key={i}
-                  className="absolute w-2 h-2 bg-teal-400/40 rounded-full"
-                  style={{
-                    left: '50%',
-                    top: '50%',
-                    transform: `translate(-50%, -50%) rotate(${i * 22.5}deg) translateY(-300px)`,
-                  }}
-                  animate={{
-                    opacity: [0.2, 1, 0.2],
-                    scale: [0.5, 1, 0.5],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: i * 0.1,
-                    ease: 'easeInOut',
-                  }}
-                />
-              ))}
-            </motion.div>
-
-            <img src="/coin-wheel-white.svg" alt="Flywheel" className="absolute w-1/2 h-full" />
-
-            {/* Static container for orbiting nodes */}
-            {/* <div className="absolute w-full h-full">
-              {isClient &&
-                revenueStreams.map((stream, index) => (
-                  <FlywheelNode
-                    key={index}
-                    stream={stream}
-                    index={index}
-                    setHoveredSection={setHoveredSection}
-                    hoveredSection={hoveredSection}
-                  />
-                ))}
-            </div> */}
-
-            {/* Central Hub */}
-            <motion.div
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1.5, delay: 1 }}
-              className="relative z-30"
-            >
-              <motion.div
-                className="w-28 h-28 bg-gradient-to-br from-teal-400/30 to-cyan-400/30 border-2 border-teal-400/50 rounded-full flex items-center justify-center backdrop-blur-sm"
-                animate={{
-                  boxShadow: [
-                    '0 0 20px rgba(56, 178, 172, 0.3)',
-                    '0 0 40px rgba(56, 178, 172, 0.6)',
-                    '0 0 20px rgba(56, 178, 172, 0.3)',
-                  ],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              >
-                <div className="text-center">
-                  <motion.div
-                    className="text-lg font-light text-teal-400 mb-1"
-                    animate={{
-                      textShadow: [
-                        '0 0 10px rgba(56, 178, 172, 0.5)',
-                        '0 0 20px rgba(56, 178, 172, 0.8)',
-                        '0 0 10px rgba(56, 178, 172, 0.5)',
-                      ],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
-                  >
-                    ZDLT
-                  </motion.div>
-                  <div className="text-[11px] text-slate-300 font-light">Stakers</div>
-                  <div className="text-[9px] text-teal-400 mt-1 font-light">Revenue Hub</div>
-                </div>
-              </motion.div>
-            </motion.div>
-
-            {/* Multiple Pulse Rings */}
-            {[1, 1.5, 2].map((scale, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-28 h-28 border border-teal-400/10 rounded-full"
-                animate={{
-                  scale: [scale, scale * 4, scale],
-                  opacity: [0.4, 0, 0.4],
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  delay: i * 2,
-                  ease: 'easeOut',
-                }}
-              />
-            ))}
-
-            {/* Energy Flow Lines */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 25,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-              className="absolute w-[400px] h-[400px] opacity-15"
-            >
-              {[...Array(5)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute w-px h-20 bg-gradient-to-b from-teal-400 to-transparent"
-                  style={{
-                    left: '50%',
-                    top: '50%',
-                    transform: `translate(-50%, -50%) rotate(${i * 72}deg) translateY(-200px)`,
-                  }}
-                />
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Flow Explanation */}
-      <section className="py-20 px-6 bg-gradient-to-b from-black via-gray-950/50 to-black">
-        <div className="max-w-5xl mx-auto">
-          {/* How It Works */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
-            className="mb-24"
-          >
-            <h2 className="text-4xl font-extralight text-center mb-16">Funding Rate Flywheel</h2>
-
-            <div className="space-y-16">
-              {[
-                {
-                  number: '01',
-                  title: 'Funding Rate Intelligence',
-                  desc: 'Real-time monitoring of funding rates across KuCoin and Bybit identifies profitable arbitrage opportunities with spreads exceeding 0.5%.',
-                  flow: 'Rate Monitoring → Arbitrage Detection → Profit Opportunities',
-                },
-                {
-                  number: '02',
-                  title: 'Automated Position Management',
-                  desc: 'Sophisticated algorithms automatically open opposing positions on exchanges with rate differentials, maximizing funding payment collection.',
-                  flow: 'Rate Spreads → Automated Positioning → Funding Collection',
-                },
-                {
-                  number: '03',
-                  title: 'Risk-Neutral Profit Generation',
-                  desc: 'Market-neutral strategies eliminate directional risk while capturing funding rate differences, providing consistent returns regardless of price movement.',
-                  flow: 'Neutral Positioning → Guaranteed Funding → Consistent Profits',
-                },
-                {
-                  number: '04',
-                  title: 'Compound Growth Mechanism',
-                  desc: 'Profits from funding rate arbitrage are reinvested to increase position sizes, creating exponential growth in earning potential over time.',
-                  flow: 'Funding Profits → Position Size Increase → Exponential Growth',
-                },
-                {
-                  number: '05',
-                  title: 'Protocol Transaction Fees',
-                  desc: 'Protocol fees are split evenly: 50% is used to systematically buy back and burn ZDLT, and 50% is reserved for operational costs.',
-                  flow: 'Protocol Fees → 50% Buyback, 50% Operations',
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="grid grid-cols-1 md:grid-cols-[auto,1fr] gap-x-8 gap-y-4"
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
+                  className="space-y-8"
                 >
-                  <div className="flex items-center">
-                    <div className="text-5xl font-extralight text-teal-400/50 select-none w-16 text-center">
-                      {item.number}
-                    </div>
-                    <div className="w-px h-full bg-gradient-to-b from-transparent via-teal-400/30 to-transparent mx-4" />
+                  <div>
+                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-accent text-slate-900 dark:text-white leading-tight">
+                      The Economic
+                      <br />
+                      <span className="text-brand-emerald">Flywheel</span>
+                    </h1>
                   </div>
+                  
+                  <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 leading-relaxed max-w-lg">
+                    Four interconnected pillars that create sustainable value and growth in a perpetual cycle of innovation.
+                  </p>
 
-                  <div className="flex flex-col justify-center">
-                    <h3 className="text-2xl font-light text-white mb-3">{item.title}</h3>
-                    <p className="text-base text-slate-300 mb-4 font-light leading-relaxed">{item.desc}</p>
-                    <div className="text-sm font-mono text-teal-400/80 bg-slate-900/50 self-start px-3 py-1 rounded">
-                      {item.flow}
-                    </div>
+                  <div className="pt-4">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.8 }}
+                      className="flex items-center space-x-4 text-sm text-slate-600 dark:text-slate-400"
+                    >
+                      <div className="w-12 h-px bg-brand-emerald"></div>
+                      <span>Intelligence meets innovation</span>
+                    </motion.div>
                   </div>
                 </motion.div>
-              ))}
-            </div>
-          </motion.div>
 
-          {/* Economic Logic */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <h3 className="text-4xl font-extralight text-center mb-16">The Logic of Growth</h3>
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-8">
-              {['More Revenue', 'Higher Yields', 'Increased Demand', 'Stronger Token', 'Sustainable Growth'].map(
-                (text, i, arr) => (
-                  <motion.div
-                    key={text}
-                    className="flex items-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: i * 0.3 }}
-                    viewport={{ once: true }}
+                {/* Right side - Enhanced coin wheel */}
+                <motion.div
+                  initial={{ opacity: 0, x: 50, rotate: -45 }}
+                  animate={{ opacity: 1, x: 0, rotate: 0 }}
+                  transition={{ duration: 1.2, ease: 'easeOut', delay: 0.4 }}
+                  className="flex justify-center lg:justify-end relative"
+                >
+                  {/* Spotlight effect for the wheel */}
+                  <div 
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full"
+                    style={{
+                      background: isDark 
+                        ? 'radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%)'
+                        : 'radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%)'
+                    }}
+                  />
+                  
+                  <motion.div 
+                    style={{ rotate: wheelRotate }}
+                    className="relative z-10"
                   >
-                    <span className="text-lg md:text-xl font-light text-slate-200 bg-slate-900/60 border border-slate-700/50 rounded-lg px-4 py-2">
-                      {text}
-                    </span>
-
-                    {i < arr.length - 1 && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5, delay: i * 0.3 + 0.2 }}
-                        viewport={{ once: true }}
-                        className="mx-4"
-                      >
-                        <ArrowRight className="w-6 h-6 text-teal-400/70" />
-                      </motion.div>
+                    {isDark ? (
+                      <img src="/coin-wheel-white.svg" alt="Flywheel" className="w-80 h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] opacity-60 drop-shadow-2xl" />
+                    ) : (
+                      <img src="/coin-wheel-green.svg" alt="Flywheel" className="w-80 h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] opacity-50 drop-shadow-2xl" />
                     )}
                   </motion.div>
-                ),
-              )}
-            </div>
-          </motion.div>
-        </div>
-      </section>
+                </motion.div>
 
-      {/* Call to Action */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl font-extralight mb-8">Access the Terminal</h2>
-            <p className="text-xl text-slate-400 mb-12 font-light max-w-2xl mx-auto leading-relaxed">
-              Monitor real-time funding rates and discover arbitrage opportunities across exchanges
-            </p>
-
-            <Link
-              href="/staking"
-              className="inline-flex items-center justify-center bg-gradient-to-r from-teal-400 to-cyan-400 hover:from-teal-500 hover:to-cyan-500 text-black font-medium px-12 py-4 text-lg rounded-full transition-all duration-300 transform hover:scale-105"
-            >
-              Launch Terminal
-              <ArrowRight className="ml-3 w-5 h-5" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-16 px-6 border-t border-slate-800/30">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <Link href="/" className="flex items-center space-x-4 mb-8 md:mb-0">
-              <img src="/zirodelta-logo.png" alt="ZiroDelta" className="w-10 h-10" />
-              <span className="text-2xl font-light tracking-wide">ZiroDelta</span>
-            </Link>
-
-            <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
-              {/* Social Media Links */}
-              <div className="flex items-center space-x-6">
-                <a
-                  href="https://x.com/zirodelta"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-teal-400 transition-colors duration-300 font-light"
-                >
-                  X
-                </a>
-                <a
-                  href="https://discord.gg/YHW275Vpn3"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-teal-400 transition-colors duration-300 font-light"
-                >
-                  Discord
-                </a>
-                <a
-                  href="https://t.me/zirodelta"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-slate-400 hover:text-teal-400 transition-colors duration-300 font-light"
-                >
-                  Telegram
-                </a>
               </div>
+            </div>
+          </div>
 
-              {/* Solana Token */}
-              <div className="flex items-center space-x-2 bg-slate-900/30 border border-slate-800/50 rounded-lg px-4 py-2">
-                <span className="text-xs text-slate-500 font-light">Contract Address:</span>
-                <code className="text-xs text-teal-400 font-mono">4PX31xRA1BaAyb2Js45ZKYp92VGWGp47yWeVs5CGVKbf</code>
+          {/* Scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 1 }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+          >
+            <ChevronDown className="w-6 h-6 text-slate-600 dark:text-slate-400 animate-bounce" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Pillars Section - Clean sequential layout */}
+      <section className="bg-white dark:bg-gray-900">
+        {pillars.map((pillar, index) => (
+          <Pillar 
+            key={index} 
+            {...pillar} 
+            isDark={isDark} 
+            index={index}
+          />
+        ))}
+      </section>
+
+      {/* Final Section */}
+      <section className="py-24 md:py-32 px-6 text-center bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto"
+        >
+          <div className="flex justify-center mb-8">
+            {isDark ? (
+              <img src="/flower-green.svg" alt="Virtuous Cycle" className="w-16 h-16 opacity-80" />
+            ) : (
+              <img src="/flower-white.svg" alt="Virtuous Cycle" className="w-16 h-16 opacity-70" />
+            )}
+          </div>
+          
+          <h2 className="text-3xl md:text-5xl font-accent text-slate-900 dark:text-white mb-6">
+            A Virtuous Cycle of Value
+          </h2>
+          
+          <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-12 max-w-3xl mx-auto">
+            This self-perpetuating loop ensures that as ZiroDelta grows, the value returned to our community and
+            token holders grows with it. Participation doesn't just grant access; it fuels the entire engine.
+          </p>
+          
+          <Button asChild size="lg" className="group bg-brand-emerald hover:bg-brand-emerald/90">
+            <Link href="/protocol">
+              <span>Explore the Protocol</span>
+              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </Button>
+        </motion.div>
+      </section>
+      
+      {/* Footer */}
+      <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+        <div className="py-16 px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 max-w-6xl mx-auto">
+            <div className="flex items-center space-x-2">
+              <span className="text-xs text-brand-emerald dark:text-white font-light">Contract:</span>
+              <div className="flex items-center space-x-2 border border-border/50 dark:border-brand-teal rounded-lg px-3 py-1">
+                <code className="text-xs text-brand-emerald dark:text-white font-mono">
+                  4PX31xRA1BaAyb2Js45ZKYp92VGWGp47yWeVs5CGVKbf
+                </code>
                 <button
                   onClick={() => {
                     navigator.clipboard.writeText('4PX31xRA1BaAyb2Js45ZKYp92VGWGp47yWeVs5CGVKbf')
                   }}
-                  className="text-slate-400 hover:text-teal-400 transition-colors duration-300 text-xs"
-                  title="Copy contract address"
+                  className="text-brand-teal dark:text-white hover:text-primary transition-colors duration-300 text-xs"
+                  title="Copy full contract address"
                 >
                   Copy
                 </button>
               </div>
             </div>
-          </div>
-
-          <div className="mt-12 pt-8 border-t border-slate-800/30 text-center text-slate-500 font-light">
-            <p>&copy; 2024 ZiroDelta. Intelligence meets innovation.</p>
+            <div className="flex justify-center space-x-6 text-sm text-brand-teal dark:text-white font-light">
+              <a href="https://www.zirodelta.com" className="hover:text-primary transition-colors">
+                Website
+              </a>
+              <a href="https://t.me/zirodelta" className="hover:text-primary transition-colors">
+                Telegram
+              </a>
+              <a href="https://x.com/zirodelta" className="hover:text-primary transition-colors">
+                Twitter
+              </a>
+            </div>
           </div>
         </div>
       </footer>
