@@ -167,7 +167,7 @@ export default function Home() {
               <Card className="bg-teal-700 dark:bg-teal-800 text-white h-full flex flex-col rounded-2xl border-0 overflow-hidden">
                 <CardContent className="p-8 flex flex-col h-full">
                   <div className="w-20 h-20 bg-white/10 rounded-xl mb-6 flex items-center justify-center p-4">
-                    <img src="/features/protocol.svg" alt="protocol" className="w-32 h-32 dark:hidden" />
+                    <img src="/features/protocol.svg" alt="protocol" className="w-32 h-32 " />
                   </div>
 
                   <h3 className="text-2xl font-semibold mb-2">Protocol</h3>
@@ -212,7 +212,7 @@ export default function Home() {
               <Card className="bg-gray-100 dark:bg-gray-200 text-gray-900 h-full flex flex-col rounded-2xl border-0 overflow-hidden">
                 <CardContent className="p-8 flex flex-col h-full">
                   <div className="w-20 h-20 bg-gray-300 rounded-xl mb-6 flex items-center justify-center p-4">
-                    <img src="/features/bot.svg" alt="bot" className="w-32 h-32 dark:hidden" />
+                    <img src="/features/bot.svg" alt="bot" className="w-32 h-32 " />
                   </div>
 
                   <h3 className="text-2xl font-semibold mb-2 text-teal-700">Trading Bot</h3>
@@ -257,7 +257,7 @@ export default function Home() {
               <Card className="bg-teal-700 dark:bg-teal-800 text-white h-full flex flex-col rounded-2xl border-0 overflow-hidden">
                 <CardContent className="p-8 flex flex-col h-full">
                   <div className="w-20 h-20 bg-white/10 rounded-xl mb-6 flex items-center justify-center p-4">
-                    <img src="/features/merch.svg" alt="merch" className="w-32 h-32 dark:hidden" />
+                    <img src="/features/merch.svg" alt="merch" className="w-32 h-32 " />
                   </div>
 
                   <h3 className="text-2xl font-semibold mb-2">Community</h3>
@@ -302,7 +302,7 @@ export default function Home() {
             <div className="flex items-center space-x-4 mb-8 md:mb-0">
               <Link href="/" className="flex items-center space-x-4">
                 <div>
-                  <img src="/zirolight.svg" alt="ZiroDelta" className="w-32 h-32 dark:hidden" />
+                  <img src="/zirolight.svg" alt="ZiroDelta" className="w-32 h-32 " />
                   <img src="/zirodark.svg" alt="ZiroDelta" className="w-32 h-32 hidden dark:block" />
                 </div>
               </Link>
