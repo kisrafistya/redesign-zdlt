@@ -55,7 +55,7 @@ export default function Home() {
             className="max-w-4xl mx-auto"
           >
             <div className="mb-4">
-              <span className="inline-block px-4 bg-primary/10 rounded-full text-light dark:text-brand-emerald text-sm font-light tracking-wide">
+              <span className="inline-block px-4 bg-primary/10 rounded-full text-light dark:text-brand-emerald text-sm tracking-wide font-semibold">
                 Funding-Rate Intelligence, Solana Speed
               </span>
             </div>

@@ -31,7 +31,7 @@ export function NavBar() {
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center border dark:border-0  bg-[#F4F4F4] dark:bg-transparent rounded-lg pl-2 space-x-8 absolute left-1/2 transform -translate-x-1/2">
+          <div className="hidden md:flex items-center border dark:border-0 bg-[#F4F4F4] dark:bg-transparent rounded-lg p-2 space-x-8 absolute left-1/2 transform -translate-x-1/2">
             {mainLinks.map(link => {
               const isActive = pathname === link.href
               return (
