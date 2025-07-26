@@ -116,12 +116,20 @@ export default function Home() {
             className="flex justify-center mb-8"
           >
             <div className="flex flex-col items-center">
-              <img
-                src="/zdltpeeps.svg"
-                alt="ZiroDelta Community"
-                className="w-40 h-auto shadow-brand-emerald/10 dark:shadow-brand-emerald/20"
-              />
-              <div className="border-b-2 border-brand-emerald w-72"></div>
+              {isDark ? (
+                <img
+                  src="/zdltpeeps-white.svg"
+                  alt="ZiroDelta Community"
+                  className="w-36 h-auto shadow-brand-emerald/10 dark:shadow-brand-emerald/20"
+                />
+              ) : (
+                <img
+                  src="/zdltpeeps.svg"
+                  alt="ZiroDelta Community"
+                  className="w-36 h-auto shadow-brand-emerald/10 dark:shadow-brand-emerald/20"
+                />
+              )}
+              <div className="border-b-2 border-brand-emerald dark:border-white w-72"></div>
             </div>
           </motion.div>
           <motion.div
