@@ -8,91 +8,89 @@ import { useRef } from 'react'
 import { NavBar } from '@/components/ui/nav-bar'
 import { useTheme } from '@/lib/theme-provider'
 
-const Pillar = ({
-  num,
-  title,
-  description,
-  isDark,
-  index,
-}: {
-  num: number
-  title: string
-  description: string
-  isDark: boolean
-  index: number
-}) => {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start 0.8', 'end 0.2'],
-  })
-
-  // More controlled opacity and position animations
-  const opacity = useTransform(
-    scrollYProgress, 
-    [0, 0.3, 0.7, 1], 
-    [0, 1, 1, 0]
-  )
-  
-  const y = useTransform(
-    scrollYProgress, 
-    [0, 0.3, 0.7, 1], 
-    [50, 0, 0, -50]
-  )
-
-  const scale = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.7, 1],
-    [0.8, 1, 1, 0.8]
-  )
-
+const PillarCard = ({ num, title, description }: { num: number; title: string; description: string }) => {
   return (
-    <div ref={ref} className={`h-screen flex items-center justify-center relative`}>
-      <motion.div
-        style={{ opacity, y, scale }}
-        className="text-center px-6 max-w-2xl"
-      >
-        <motion.div 
-          className="w-20 h-20 rounded-full border-2 border-brand-emerald/40 flex items-center justify-center mx-auto mb-8 bg-brand-emerald/5"
-          whileHover={{ scale: 1.1, borderColor: 'rgb(16 185 129)' }}
-          transition={{ duration: 0.3 }}
-        >
-          <span className="text-3xl font-bold text-brand-emerald">{num}</span>
-        </motion.div>
-        
-        <h3 className="text-4xl md:text-5xl font-accent mb-6 text-slate-800 dark:text-white">
-          {title}
-        </h3>
-        
+    <div className="relative w-[90vw] md:w-[70vw] lg:w-[45vw] flex-shrink-0 p-8 sm:p-12 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border border-slate-200/50 dark:border-slate-800/50 rounded-xl shadow-2xl shadow-brand-emerald/5 overflow-hidden">
+      {/* Retro Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:36px_36px] [mask-image:radial-gradient(ellipse_at_center,black_10%,transparent_80%)] dark:[mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)] opacity-50 dark:opacity-100"></div>
+
+      <div className="text-center relative z-10">
+        <div className="mb-8">
+          <span className="text-6xl font-accent font-bold text-brand-emerald/80 dark:text-brand-emerald/90">{`0${num}`}</span>
+          <div className="w-20 h-px bg-brand-emerald/30 mx-auto mt-4"></div>
+        </div>
+
+        <h3 className="text-4xl md:text-5xl font-accent mb-6 text-slate-800 dark:text-white">{title}</h3>
+
         <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-lg mx-auto">
           {description}
         </p>
-        
-        {/* Subtle progress indicator */}
-        <div className="flex justify-center mt-8 space-x-2">
-          {[0, 1, 2, 3].map((i) => (
-            <div
-              key={i}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                i === index 
-                  ? 'bg-brand-emerald scale-125' 
-                  : 'bg-brand-emerald/20'
-              }`}
-            />
-          ))}
-        </div>
-      </motion.div>
+      </div>
     </div>
+  )
+}
+
+const ProgressDot = ({
+  i,
+  scrollYProgress,
+  pillarsLength,
+}: {
+  i: number
+  scrollYProgress: any
+  pillarsLength: number
+}) => {
+  const start = i / pillarsLength
+  const end = (i + 1) / pillarsLength
+  const scale = useTransform(scrollYProgress, [start, end], [1, 1.5], {
+    clamp: true,
+  })
+  const color = useTransform(scrollYProgress, [start, end], ['rgb(16 185 129 / 0.2)', 'rgb(16 185 129)'], {
+    clamp: true,
+  })
+
+  return <motion.div className="w-2 h-2 rounded-full" style={{ scale, backgroundColor: color }} />
+}
+
+const HorizontalScrollPillars = ({ pillars }: { pillars: any[] }) => {
+  const horizontalRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: horizontalRef,
+    offset: ['start start', 'end end'],
+  })
+
+  const x = useTransform(scrollYProgress, [0, 1], ['38%', '-30%'])
+  const dotsOpacity = useTransform(scrollYProgress, [0, 0.05, 0.95, 1], [0, 1, 1, 0])
+
+  return (
+    <section ref={horizontalRef} className="relative h-[400vh]">
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
+        <motion.div style={{ x }} className="flex items-center gap-8">
+          {pillars.map((pillar, index) => (
+            <PillarCard key={index} {...pillar} />
+          ))}
+        </motion.div>
+
+        {/* Progress Dots */}
+        <motion.div
+          style={{ opacity: dotsOpacity }}
+          className="flex justify-center mt-12 space-x-2 fixed bottom-10 left-1/2 -translate-x-1/2 z-50"
+        >
+          {pillars.map((_, i) => (
+            <ProgressDot key={i} i={i} scrollYProgress={scrollYProgress} pillarsLength={pillars.length} />
+          ))}
+        </motion.div>
+      </div>
+    </section>
   )
 }
 
 export default function FlywheelPage() {
   const heroRef = useRef(null)
-  const { scrollYProgress: heroProgress } = useScroll({ 
+  const { scrollYProgress: heroProgress } = useScroll({
     target: heroRef,
-    offset: ['start start', 'end start']
+    offset: ['start start', 'end start'],
   })
-  
+
   const { theme } = useTheme()
   const isDark = theme === 'dark'
 
@@ -107,27 +105,36 @@ export default function FlywheelPage() {
     {
       num: 1,
       title: 'Bot Revenue',
-      description: 'Strategic partnerships generate revenue streams that fuel development and systematic token buybacks, creating sustainable growth.',
+      description:
+        'Strategic partnerships generate revenue streams that fuel development and systematic token buybacks, creating sustainable growth.',
     },
     {
       num: 2,
       title: 'Merch Flywheel',
-      description: 'Exclusive merchandise rewards for token holders who participate in burn mechanisms, strengthening community engagement.',
+      description:
+        'Exclusive merchandise rewards for token holders who participate in burn mechanisms, strengthening community engagement.',
     },
     {
       num: 3,
       title: 'Protocol Revenue',
-      description: 'Transaction fees are systematically allocated to ZDLT buybacks and burns, reducing supply and enhancing token value.',
+      description:
+        'Transaction fees are systematically allocated to ZDLT buybacks and burns, reducing supply and enhancing token value.',
     },
     {
       num: 4,
       title: 'Ecosystem Growth',
-      description: 'Expanding user adoption drives higher transaction volume, amplifying the effects of all revenue pillars exponentially.',
+      description:
+        'Expanding user adoption drives higher transaction volume, amplifying the effects of all revenue pillars exponentially.',
     },
   ]
 
   return (
-    <main className="min-h-screen text-foreground">
+    <main className="min-h-screen text-foreground relative">
+      {/* Unified Background */}
+      <div className="absolute inset-0 z-[-1] overflow-hidden">
+        <div className="absolute inset-0 bg-background/5 dark:bg-background/5" />
+      </div>
+
       <NavBar />
 
       {/* Hero Section - Fixed height to prevent layout issues */}
@@ -143,7 +150,6 @@ export default function FlywheelPage() {
           <div className="absolute inset-0 flex items-center z-20">
             <div className="container mx-auto px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
-                
                 {/* Left side - Text content */}
                 <motion.div
                   initial={{ opacity: 0, x: -50 }}
@@ -158,9 +164,10 @@ export default function FlywheelPage() {
                       <span className="text-brand-emerald">Flywheel</span>
                     </h1>
                   </div>
-                  
+
                   <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 leading-relaxed max-w-lg">
-                    Four interconnected pillars that create sustainable value and growth in a perpetual cycle of innovation.
+                    Four interconnected pillars that create sustainable value and growth in a perpetual cycle of
+                    innovation.
                   </p>
 
                   <div className="pt-4">
@@ -184,27 +191,31 @@ export default function FlywheelPage() {
                   className="flex justify-center lg:justify-end relative"
                 >
                   {/* Spotlight effect for the wheel */}
-                  <div 
+                  <div
                     className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full"
                     style={{
-                      background: isDark 
+                      background: isDark
                         ? 'radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%)'
-                        : 'radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%)'
+                        : 'radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%)',
                     }}
                   />
-                  
-                  <motion.div 
-                    style={{ rotate: wheelRotate }}
-                    className="relative z-10"
-                  >
+
+                  <motion.div style={{ rotate: wheelRotate }} className="relative z-10">
                     {isDark ? (
-                      <img src="/coin-wheel-white.svg" alt="Flywheel" className="w-80 h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] opacity-60 drop-shadow-2xl" />
+                      <img
+                        src="/coin-wheel-white.svg"
+                        alt="Flywheel"
+                        className="w-80 h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] opacity-60 drop-shadow-2xl"
+                      />
                     ) : (
-                      <img src="/coin-wheel-green.svg" alt="Flywheel" className="w-80 h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] opacity-50 drop-shadow-2xl" />
+                      <img
+                        src="/coin-wheel-green.svg"
+                        alt="Flywheel"
+                        className="w-80 h-80 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] opacity-50 drop-shadow-2xl"
+                      />
                     )}
                   </motion.div>
                 </motion.div>
-
               </div>
             </div>
           </div>
@@ -221,20 +232,11 @@ export default function FlywheelPage() {
         </div>
       </section>
 
-      {/* Pillars Section - Clean sequential layout */}
-      <section className="bg-white dark:bg-gray-900">
-        {pillars.map((pillar, index) => (
-          <Pillar 
-            key={index} 
-            {...pillar} 
-            isDark={isDark} 
-            index={index}
-          />
-        ))}
-      </section>
+      {/* Pillars Section - Horizontal Scroll */}
+      <HorizontalScrollPillars pillars={pillars} />
 
       {/* Final Section */}
-      <section className="py-24 md:py-32 px-6 text-center bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+      <section className="py-24 md:py-32 px-6 text-center bg-gray-50/50 dark:bg-gray-800/50 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -246,19 +248,19 @@ export default function FlywheelPage() {
             {isDark ? (
               <img src="/flower-green.svg" alt="Virtuous Cycle" className="w-16 h-16 opacity-80" />
             ) : (
-              <img src="/flower-white.svg" alt="Virtuous Cycle" className="w-16 h-16 opacity-70" />
+              <img src="/flower-green.svg" alt="Virtuous Cycle" className="w-16 h-16 opacity-70" />
             )}
           </div>
-          
+
           <h2 className="text-3xl md:text-5xl font-accent text-slate-900 dark:text-white mb-6">
             A Virtuous Cycle of Value
           </h2>
-          
+
           <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-12 max-w-3xl mx-auto">
-            This self-perpetuating loop ensures that as ZiroDelta grows, the value returned to our community and
-            token holders grows with it. Participation doesn't just grant access; it fuels the entire engine.
+            This self-perpetuating loop ensures that as ZiroDelta grows, the value returned to our community and token
+            holders grows with it. Participation doesn't just grant access; it fuels the entire engine.
           </p>
-          
+
           <Button asChild size="lg" className="group bg-brand-emerald hover:bg-brand-emerald/90">
             <Link href="/protocol">
               <span>Explore the Protocol</span>
@@ -267,7 +269,7 @@ export default function FlywheelPage() {
           </Button>
         </motion.div>
       </section>
-      
+
       {/* Footer */}
       <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
         <div className="py-16 px-6">
