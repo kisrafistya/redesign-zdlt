@@ -34,7 +34,7 @@ export function NavBar() {
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center border dark:border-0 bg-[#F4F4F4] dark:bg-transparent rounded-lg p-2 space-x-8 absolute left-1/2 transform -translate-x-1/2 shadow-sm dark:shadow-[0_2px_8px_rgba(255,255,255,0.08)]">
+          <div className="hidden md:flex items-center border dark:border-0 bg-[#F4F4F4] dark:bg-transparent rounded-lg p-2 space-x-8 absolute left-1/2 transform -translate-x-1/2 not-dark:shadow-sm">
             {mainLinks.map(link => {
               const isActive = pathname === link.href
               return (
@@ -43,7 +43,7 @@ export function NavBar() {
                   href={link.href}
                   className={`text-sm transition-colors duration-300 ${
                     isActive
-                      ? 'text-brand-emerald dark:text-white font-semibold drop-shadow-sm dark:drop-shadow-[0_1px_2px_rgba(255,255,255,0.15)]'
+                      ? 'text-brand-emerald dark:text-white font-semibold not-dark:drop-shadow-sm'
                       : 'dark:text-brand-pastel/80 hover:text-primary'
                   }`}
                 >
