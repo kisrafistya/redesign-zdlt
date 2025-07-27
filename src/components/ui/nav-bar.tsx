@@ -53,7 +53,7 @@ export function NavBar() {
             })}
           </div>
 
-          <div className="hidden md:flex items-center space-x-4 drop-shadow-sm dark:drop-shadow-[0_2px_4px_rgba(255,255,255,0.1)]">
+          <div className="hidden md:flex items-center not-dark:bg-white/25 backdrop-blur-2xl rounded-md space-x-4 drop-shadow-sm dark:drop-shadow-[0_2px_4px_rgba(255,255,255,0.1)]">
             {/* disabled temporarily dont delete this! */}
             {/* <Button
               variant="default"
