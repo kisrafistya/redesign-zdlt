@@ -24,14 +24,17 @@ export function NavBar() {
     <nav className="fixed top-0 w-full z-50 backdrop-blur-sm border-border/30 dark:bg-gradient-to-b from-black via-black/50 to-transparent">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-4">
-            <div>
+          <Link
+            href="/"
+            className="flex items-center space-x-4 rounded-lg hover:bg-white/5 dark:hover:bg-black/20 transition-colors"
+          >
+            <div className="drop-shadow-sm drop-shadow-white/75 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.25)]">
               <img src="/zirolight.svg" alt="ZiroDelta" className="w-32 h-24 dark:hidden" />
               <img src="/zirodark.svg" alt="ZiroDelta" className="w-32 h-24 hidden dark:block" />
             </div>
           </Link>
 
-          <div className="hidden md:flex items-center border dark:border-0 bg-[#F4F4F4] dark:bg-transparent rounded-lg p-2 space-x-8 absolute left-1/2 transform -translate-x-1/2">
+          <div className="hidden md:flex items-center border dark:border-0 bg-[#F4F4F4] dark:bg-transparent rounded-lg p-2 space-x-8 absolute left-1/2 transform -translate-x-1/2 shadow-sm dark:shadow-[0_2px_8px_rgba(255,255,255,0.08)]">
             {mainLinks.map(link => {
               const isActive = pathname === link.href
               return (
@@ -40,7 +43,7 @@ export function NavBar() {
                   href={link.href}
                   className={`text-sm transition-colors duration-300 ${
                     isActive
-                      ? 'text-brand-emerald dark:text-white font-semibold'
+                      ? 'text-brand-emerald dark:text-white font-semibold drop-shadow-sm dark:drop-shadow-[0_1px_2px_rgba(255,255,255,0.15)]'
                       : 'dark:text-brand-pastel/80 hover:text-primary'
                   }`}
                 >
@@ -50,7 +53,7 @@ export function NavBar() {
             })}
           </div>
 
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4 drop-shadow-sm dark:drop-shadow-[0_2px_4px_rgba(255,255,255,0.1)]">
             {/* disabled temporarily dont delete this! */}
             {/* <Button
               variant="default"
