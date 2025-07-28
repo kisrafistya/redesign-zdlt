@@ -19,9 +19,6 @@ const nextConfig: NextConfig = {
 
   // Bundle analyzer can be added separately when needed
 
-  // Performance optimizations
-  swcMinify: true,
-
   // Headers for better caching
   async headers() {
     return [

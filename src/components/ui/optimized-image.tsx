@@ -33,8 +33,7 @@ export function OptimizedImage({
     <Image
       src={src}
       alt={alt}
-      width={width}
-      height={height}
+      {...(fill ? { fill: true } : { width, height })}
       priority={priority}
       sizes={sizes}
       quality={quality}
