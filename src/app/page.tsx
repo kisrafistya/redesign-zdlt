@@ -1,13 +1,13 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { ArrowRight, ChevronDown } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
+import { Footer } from '@/components/ui/footer'
 import { NavBar } from '@/components/ui/nav-bar'
-import Link from 'next/link'
-import { useRef } from 'react'
+import { Section, SectionHeader } from '@/components/ui/section'
 import { useTheme } from '@/lib/theme-provider'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { ChevronDown } from 'lucide-react'
+import { useRef } from 'react'
 
 export default function Home() {
   const ref = useRef(null)
@@ -296,74 +296,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="py-16 px-6 border-t border-border/30">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center space-x-4 mb-8 md:mb-0">
-              <Link href="/" className="flex items-center space-x-4">
-                <div>
-                  <img src="/zirolight.svg" alt="ZiroDelta" className="w-32 h-32 dark:hidden" />
-                  <img src="/zirodark.svg" alt="ZiroDelta" className="w-32 h-32 hidden dark:block" />
-                </div>
-              </Link>
-            </div>
-
-            {/* Social Media Links */}
-            <div className="flex items-center space-x-6">
-              <a
-                href="https://x.com/zirodelta"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-teal dark:text-white hover:text-primary transition-colors duration-300 font-light"
-              >
-                X
-              </a>
-              <span className="text-brand-teal dark:text-white">|</span>
-              <a
-                href="https://discord.gg/YHW275Vpn3"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-teal dark:text-white hover:text-primary transition-colors duration-300 font-light"
-              >
-                Discord
-              </a>
-              <span className="text-brand-teal dark:text-white">|</span>
-              <a
-                href="https://t.me/zirodelta"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-teal dark:text-white hover:text-primary transition-colors duration-300 font-light"
-              >
-                Telegram
-              </a>
-            </div>
-
-            {/* Solana Token */}
-            <div className="flex items-center space-x-2">
-              <span className="text-xs text-brand-emerald dark:text-white font-light">Contract Address:</span>
-              <div className="flex items-center space-x-2 border border-border/50 dark:border-brand-teal rounded-lg px-3 py-1">
-                <code className="text-xs text-brand-emerald dark:text-white font-mono">
-                  4PX31xRA1BaAyb2Js45ZKYp92VGWGp47yWeVs5CGVKbf
-                </code>
-                <button
-                  onClick={() => {
-                    navigator.clipboard.writeText('4PX31xRA1BaAyb2Js45ZKYp92VGWGp47yWeVs5CGVKbf')
-                    // Optional: Add toast notification here
-                  }}
-                  className="text-brand-teal dark:text-white hover:text-primary transition-colors duration-300 text-xs"
-                  title="Copy contract address"
-                >
-                  Copy
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 pt-8 border-t border-border/30 text-center text-brand-emerald dark:text-white font-light">
-            <p>&copy; 2025 ZiroDelta. Intelligence meets innovation.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   )
 }

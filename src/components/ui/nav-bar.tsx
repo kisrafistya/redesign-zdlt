@@ -5,17 +5,15 @@ import { usePathname } from 'next/navigation'
 import { Target, Circle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
+import { OptimizedImage } from '@/components/ui/optimized-image'
+import { APP_CONFIG, NAVIGATION_LINKS } from '@/lib/constants'
 
 type NavLink = {
   href: string
   label: string
 }
 
-const mainLinks: NavLink[] = [
-  { href: '/manifesto', label: 'Manifesto' },
-  { href: '/flywheel', label: 'Flywheel' },
-  { href: '/roadmap', label: 'Roadmap' },
-]
+const mainLinks = NAVIGATION_LINKS
 
 export function NavBar() {
   const pathname = usePathname()
@@ -29,8 +27,20 @@ export function NavBar() {
             className="flex items-center space-x-4 rounded-lg hover:bg-white/5 dark:hover:bg-black/20 transition-colors"
           >
             <div className="drop-shadow-sm drop-shadow-white/75 dark:drop-shadow-[0_4px_8px_rgba(255,255,255,0.25)]">
-              <img src="/zirolight.svg" alt="ZiroDelta" className="w-32 h-24 dark:hidden" />
-              <img src="/zirodark.svg" alt="ZiroDelta" className="w-32 h-24 hidden dark:block" />
+              <OptimizedImage
+                src="/zirolight.svg"
+                alt={APP_CONFIG.name}
+                width={200}
+                height={100}
+                className="dark:hidden w-32 h-20"
+              />
+              <OptimizedImage
+                src="/zirodark.svg"
+                alt={APP_CONFIG.name}
+                width={200}
+                height={100}
+                className="hidden dark:block w-32 h-20"
+              />
             </div>
           </Link>
 
