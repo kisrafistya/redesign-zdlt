@@ -174,6 +174,78 @@ export const buttonTap: Variants = {
   },
 }
 
+// Navigation animations
+export const mobileMenuBackdrop: Variants = {
+  closed: {
+    opacity: 0,
+  },
+  open: {
+    opacity: 1,
+  },
+}
+
+export const mobileMenuItems: Variants = {
+  closed: {
+    x: -20,
+    opacity: 0,
+  },
+  open: {
+    x: 0,
+    opacity: 1,
+  },
+}
+
+export const mobileMenuContainer: Variants = {
+  closed: {
+    transition: {
+      staggerChildren: 0.05,
+      staggerDirection: -1,
+    },
+  },
+  open: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
+    },
+  },
+}
+
+// Loading animation
+export const loadingSpinner: Variants = {
+  animate: {
+    rotate: 360,
+    transition: {
+      duration: 1,
+      repeat: Infinity,
+      ease: 'linear',
+    },
+  },
+}
+
+// Notification animations
+export const slideInFromTop: Variants = {
+  hidden: {
+    y: -100,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: ANIMATION_DURATIONS.normal,
+      ease: 'easeOut',
+    },
+  },
+  exit: {
+    y: -100,
+    opacity: 0,
+    transition: {
+      duration: ANIMATION_DURATIONS.fast,
+      ease: 'easeIn',
+    },
+  },
+}
+
 // Utility function to create custom stagger animations
 export const createStaggerAnimation = (staggerDelay: number = 0.1, childrenDelay: number = 0.2): Variants => ({
   hidden: {
@@ -213,40 +285,4 @@ export const createDelayedAnimation = (delay: number, direction: 'up' | 'down' |
       },
     },
   }
-}
-
-// Loading animation
-export const loadingSpinner: Variants = {
-  animate: {
-    rotate: 360,
-    transition: {
-      duration: 1,
-      repeat: Infinity,
-      ease: 'linear',
-    },
-  },
-}
-
-// Notification animations
-export const slideInFromTop: Variants = {
-  hidden: {
-    y: -100,
-    opacity: 0,
-  },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: ANIMATION_DURATIONS.normal,
-      ease: 'easeOut',
-    },
-  },
-  exit: {
-    y: -100,
-    opacity: 0,
-    transition: {
-      duration: ANIMATION_DURATIONS.fast,
-      ease: 'easeIn',
-    },
-  },
 }

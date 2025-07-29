@@ -16,18 +16,21 @@ export function HeroSection() {
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0.6])
 
   return (
-    <section ref={ref} className="relative min-h-screen flex items-center justify-center hero-section overflow-hidden">
+    <section
+      ref={ref}
+      className="relative min-h-screen flex items-center justify-center hero-section overflow-hidden mt-8 md:mt-0"
+    >
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
         <img
           src="/banner/bg-light.png"
           alt="Background Light"
-          className="inset-0 w-full h-full scale-75 object-cover dark:hidden rounded-xl"
+          className="inset-0 w-full h-full scale-90 md:scale-75 object-cover dark:hidden rounded-xl"
         />
         <img
           src="/banner/bg-dark.png"
           alt="Background Dark"
-          className="inset-0 w-full h-full scale-75 object-cover hidden dark:block rounded-xl"
+          className="inset-0 w-full h-full scale-90 md:scale-75 object-cover hidden dark:block rounded-xl"
         />
       </div>
       <div className="absolute inset-0 bg-background/5 dark:bg-background/5 z-[1]" />
@@ -44,18 +47,17 @@ export function HeroSection() {
           className="max-w-4xl mx-auto"
         >
           <div className="mb-4">
-            <span className="inline-block px-4 bg-primary/10 rounded-full text-light dark:text-brand-emerald text-sm tracking-wide font-semibold">
+            <span className="inline-block px-4 bg-transparent md:bg-primary/10 rounded-full text-light  dark:text-brand-emerald text-sm tracking-wide font-semibold">
               Funding-Rate Intelligence, Solana Speed
             </span>
           </div>
 
           <h1 className="text-6xl md:text-8xl font-extralight leading-tight">
-            {/* <h1 className="text-3xl font-bold underline">Hello world!</h1> */}
             <span className="block font-accent text-mono-black dark:text-brand-emerald">Intelligence Meets</span>
             <span className="block font-accent text-mono-black dark:text-brand-emerald">Innovation</span>
           </h1>
 
-          <p className="text-xl md:text-xl text-white dark:text-brand-teal max-w-3xl mx-auto font-light leading-relaxed dark:bg-white/5 dark:rounded-lg dark:p-4 dark:backdrop-blur-sm">
+          <p className="text-md md:text-xl text-white dark:text-brand-teal max-w-3xl mx-auto font-light leading-relaxed dark:bg-white/5 dark:rounded-lg dark:p-4 dark:backdrop-blur-sm">
             Harvest funding-rate chaos into community-owned yield.
             <br />
             Market-neutral. Oracle-driven. Transparent on Solana.

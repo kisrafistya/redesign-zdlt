@@ -55,7 +55,7 @@ export function FeaturesSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="h-full"
           >
-            <Card className="bg-teal-700 dark:bg-teal-800 text-white h-full flex flex-col rounded-2xl border-0 overflow-hidden">
+            <Card className="bg-brand-emerald dark:bg-brand-teal/40 text-white h-full flex flex-col rounded-2xl border-0 overflow-hidden">
               <CardContent className="p-8 flex flex-col h-full">
                 <div className="w-20 h-20 bg-white/10 rounded-xl mb-6 flex items-center justify-center p-4">
                   <img src="/features/protocol.svg" alt="protocol" className="w-32 h-32 " />
@@ -106,7 +106,7 @@ export function FeaturesSection() {
                   <img src="/features/bot.svg" alt="bot" className="w-32 h-32 " />
                 </div>
 
-                <h3 className="text-2xl font-semibold mb-2 text-teal-700">Trading Bot</h3>
+                <h3 className="text-2xl font-semibold mb-2 text-brand-emerald">Trading Bot</h3>
                 <p className="text-gray-600 mb-6 text-sm">Tier-Based Access</p>
 
                 <p className="text-gray-700 mb-8 flex-grow">
@@ -145,7 +145,7 @@ export function FeaturesSection() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="h-full"
           >
-            <Card className="bg-teal-700 dark:bg-teal-800 text-white h-full flex flex-col rounded-2xl border-0 overflow-hidden">
+            <Card className="bg-brand-emerald dark:bg-brand-teal/40 text-white h-full flex flex-col rounded-2xl border-0 overflow-hidden">
               <CardContent className="p-8 flex flex-col h-full">
                 <div className="w-20 h-20 bg-white/10 rounded-xl mb-6 flex items-center justify-center p-4">
                   <img src="/features/merch.svg" alt="merch" className="w-32 h-32 " />
