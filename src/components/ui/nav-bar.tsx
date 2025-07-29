@@ -33,7 +33,7 @@ export function NavBar() {
           'fixed top-0 w-full z-50 md:bg-transparent md:backdrop-blur-sm border-border/30',
           isMobileMenuOpen
             ? 'bg-white dark:bg-black'
-            : 'bg-white dark:bg-transparent dark:bg-gradient-to-b from-black via-black/50 to-transparent',
+            : 'sm:bg-white dark:bg-transparent dark:bg-gradient-to-b from-black via-black/50 to-transparent',
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
