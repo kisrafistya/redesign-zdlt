@@ -25,11 +25,80 @@ export function Footer({ className, variant = 'default' }: FooterProps) {
 
   if (variant === 'minimal') {
     return (
-      <footer className={cn('py-6 sm:py-8 px-4 sm:px-6 border-t border-border/30', className)}>
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-sm text-muted-foreground">
-            &copy; 2025 {APP_CONFIG.name}. {APP_CONFIG.tagline}.
-          </p>
+      <footer className={cn('py-8 sm:py-12 px-4 sm:px-6 border-t border-border/30 mt-12 sm:mt-16', className)}>
+        <div className="max-w-4xl mx-auto">
+          {/* Social Links */}
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-6 sm:mb-8">
+            <a
+              href={SOCIAL_LINKS.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-brand-emerald dark:text-white hover:text-brand-teal dark:hover:text-brand-emerald transition-colors duration-300"
+            >
+              X (Twitter)
+            </a>
+            <span className="hidden sm:inline text-brand-emerald/30 dark:text-white/30">|</span>
+            <a
+              href={SOCIAL_LINKS.discord}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-brand-emerald dark:text-white hover:text-brand-teal dark:hover:text-brand-emerald transition-colors duration-300"
+            >
+              Discord
+            </a>
+            <span className="hidden sm:inline text-brand-emerald/30 dark:text-white/30">|</span>
+            <a
+              href={SOCIAL_LINKS.telegram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-brand-emerald dark:text-white hover:text-brand-teal dark:hover:text-brand-emerald transition-colors duration-300"
+            >
+              Telegram
+            </a>
+          </div>
+
+          {/* Contract Address Section */}
+          <div className="flex flex-col items-center space-y-3 mb-6 sm:mb-8">
+            <span className="text-xs font-medium text-brand-emerald/80 dark:text-white/80 uppercase tracking-wider">
+              Contract Address
+            </span>
+            <div className="flex items-center space-x-2">
+              <div className="flex items-center border border-border/50 dark:border-brand-emerald/30 rounded-lg px-3 py-2 bg-muted/30 dark:bg-transparent">
+                <code className="text-xs text-brand-emerald dark:text-white font-mono">
+                  {APP_CONFIG.contractAddress}
+                </code>
+              </div>
+              <button
+                onClick={handleCopyContract}
+                className={cn(
+                  'flex items-center space-x-1 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-300',
+                  copied
+                    ? 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20'
+                    : 'text-brand-emerald dark:text-white hover:text-brand-teal dark:hover:text-brand-emerald bg-muted/30 hover:bg-muted/50 dark:bg-transparent dark:hover:bg-white/5',
+                )}
+                title={copied ? 'Copied!' : 'Copy contract address'}
+              >
+                {copied ? (
+                  <>
+                    <Check className="h-3 w-3" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-3 w-3" />
+                    <span>Copy</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Copyright */}
+          <div className="text-center border-t border-border/20 pt-6">
+            <p className="text-sm text-brand-emerald/80 dark:text-white/80">
+              &copy; 2025 {APP_CONFIG.name}. {APP_CONFIG.tagline}.
+            </p>
+          </div>
         </div>
       </footer>
     )
