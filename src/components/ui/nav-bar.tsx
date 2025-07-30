@@ -11,12 +11,14 @@ import { OptimizedImage } from '@/components/ui/optimized-image'
 import { APP_CONFIG, NAVIGATION_LINKS } from '@/lib/constants'
 import { mobileMenuBackdrop, mobileMenuItems, mobileMenuContainer } from '@/lib/animations'
 import { cn } from '@/lib/utils'
+import { useMediaQuery } from 'react-responsive'
 
 const mainLinks = NAVIGATION_LINKS
 
 export function NavBar() {
   const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -30,10 +32,11 @@ export function NavBar() {
     <>
       <nav
         className={cn(
-          'fixed top-0 w-full z-50 md:bg-transparent md:backdrop-blur-sm border-border/30',
-          isMobileMenuOpen
-            ? 'bg-white dark:bg-black'
-            : 'sm:bg-white dark:bg-transparent dark:bg-gradient-to-b from-black via-black/50 to-transparent',
+          'fixed top-0 w-full z-50 md:backdrop-blur-sm border-border/30',
+          !isMobileMenuOpen &&
+            'bg-gradient-to-b from-white md:from-transparent via-white/50 md:via-transparent to-transparent md:to-transparent',
+          'dark:bg-gradient-to-b dark:from-black dark:via-black/50 dark:to-transparent',
+          isMobileMenuOpen && 'bg-white dark:!bg-black',
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
