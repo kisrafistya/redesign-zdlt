@@ -1,6 +1,6 @@
 // App Configuration
 export const APP_CONFIG = {
-  name: 'ZiroDelta',
+  name: 'Zirodelta',
   tagline: 'Intelligence meets innovation',
   description: 'Revolutionary DeFi protocol for everyone. Exclusive trading bot for the elite.',
   url: 'https://zirodelta.com',

@@ -3,6 +3,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { useTheme } from '@/lib/theme-provider'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 export function FeaturesSection() {
   const { theme } = useTheme()
@@ -22,13 +23,13 @@ export function FeaturesSection() {
             {isDark ? (
               <img
                 src="/zdltpeeps-white.svg"
-                alt="ZiroDelta Community"
+                alt="Zirodelta Community"
                 className="w-36 h-auto shadow-brand-emerald/10 dark:shadow-brand-emerald/20"
               />
             ) : (
               <img
                 src="/zdltpeeps.svg"
-                alt="ZiroDelta Community"
+                alt="Zirodelta Community"
                 className="w-36 h-auto shadow-brand-emerald/10 dark:shadow-brand-emerald/20"
               />
             )}
@@ -84,11 +85,8 @@ export function FeaturesSection() {
                   </div>
                 </div>
 
-                <button className="w-full bg-white text-teal-700 py-3 px-6 rounded-xl font-medium hover:bg-white/90 transition-colors flex items-center justify-between">
-                  <span>Explore Protocol</span>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
+                <button className="w-full bg-white text-teal-700 py-3 px-6 rounded-xl font-medium hover:bg-white/90 transition-colors flex items-center justify-center">
+                  <span>Coming Soon</span>
                 </button>
               </CardContent>
             </Card>
@@ -129,12 +127,12 @@ export function FeaturesSection() {
                   </div>
                 </div>
 
-                <button className="w-full bg-teal-700 text-white py-3 px-6 rounded-xl font-medium hover:bg-teal-800 transition-colors flex items-center justify-between">
+                <Link href="https://bot.zirodelta.com" className="w-full bg-teal-700 text-white py-3 px-6 rounded-xl font-medium hover:bg-teal-800 transition-colors flex items-center justify-between">
                   <span>Access Bot</span>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </button>
+                </Link>
               </CardContent>
             </Card>
           </motion.div>
@@ -155,7 +153,7 @@ export function FeaturesSection() {
                 <p className="text-teal-100 mb-6 text-sm">Merchandise & More</p>
 
                 <p className="text-white/90 mb-8 flex-grow">
-                  Show your support for funding-rate intelligence with exclusive ZiroDelta merchandise and community
+                  Show your support for funding-rate intelligence with exclusive Zirodelta merchandise and community
                   perks.
                 </p>
 
@@ -174,12 +172,12 @@ export function FeaturesSection() {
                   </div>
                 </div>
 
-                <button className="w-full bg-white text-teal-700 py-3 px-6 rounded-xl font-medium hover:bg-white/90 transition-colors flex items-center justify-between">
+                <Link href="https://merch.zirodelta.com" className="w-full bg-white text-teal-700 py-3 px-6 rounded-xl font-medium hover:bg-white/90 transition-colors flex items-center justify-between">
                   <span>Shop Merch</span>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </button>
+                </Link>
               </CardContent>
             </Card>
           </motion.div>

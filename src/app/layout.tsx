@@ -7,13 +7,13 @@ import { ThemeProvider } from '@/lib/theme-provider'
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '500', '600', '700'] })
 
 export const metadata: Metadata = {
-  title: 'ZiroDelta - The Future of Conditional Finance',
+  title: 'Zirodelta - The Future of Conditional Finance',
   description:
     'Revolutionary DeFi protocol for everyone. Exclusive trading bot for the elite. Where intelligence meets innovation.',
   keywords: ['DeFi', 'Conditional Finance', 'PFRT', 'NFRT', 'Arbitrage', 'Trading Bot', 'ZDLT', 'Staking'],
-  authors: [{ name: 'ZiroDelta' }],
-  creator: 'ZiroDelta',
-  publisher: 'ZiroDelta',
+  authors: [{ name: 'Zirodelta' }],
+  creator: 'Zirodelta',
+  publisher: 'Zirodelta',
   formatDetection: {
     email: false,
     address: false,
@@ -21,16 +21,16 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL('https://zirodelta.com'),
   openGraph: {
-    title: 'ZiroDelta - The Future of Conditional Finance',
+    title: 'Zirodelta - The Future of Conditional Finance',
     description: 'Revolutionary DeFi protocol for everyone. Exclusive trading bot for the elite.',
     url: 'https://zirodelta.com',
-    siteName: 'ZiroDelta',
+    siteName: 'Zirodelta',
     images: [
       {
         url: '/zirodelta-og.jpg',
         width: 1200,
         height: 630,
-        alt: 'ZiroDelta - Conditional Finance Revolution',
+        alt: 'Zirodelta - Conditional Finance Revolution',
       },
     ],
     locale: 'en_US',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ZiroDelta - The Future of Conditional Finance',
+    title: 'Zirodelta - The Future of Conditional Finance',
     description: 'Revolutionary DeFi protocol for everyone. Exclusive trading bot for the elite.',
     images: ['/zirodelta-og.jpg'],
   },

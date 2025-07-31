@@ -10,7 +10,7 @@ const roadmapData = {
       {
         title: 'Full Brand-Aligned Web Redesign',
         description:
-          'Launch the complete redesign reflecting the new ZiroDelta brand identity across all web properties.',
+          'Launch the complete redesign reflecting the new Zirodelta brand identity across all web properties.',
         status: 'in-progress',
       },
       {
@@ -58,7 +58,7 @@ const roadmapData = {
     ],
     Q4: [
       {
-        title: 'ZiroDelta Protocol – Architecture Draft',
+        title: 'Zirodelta Protocol – Architecture Draft',
         description: 'Finalize smart-contract architecture for Conditional Funding Rate Tokens (PFRT/NFRT).',
         status: 'planned',
       },
@@ -117,7 +117,7 @@ const roadmapData = {
       },
       {
         title: 'Institutional Onboarding',
-        description: 'Partner with funds & exchanges to provide white-label access to ZiroDelta strategies.',
+        description: 'Partner with funds & exchanges to provide white-label access to Zirodelta strategies.',
         status: 'planned',
       },
     ],
@@ -171,7 +171,7 @@ export default function RoadmapPage() {
                     <img src="/star-green.svg" alt="" className="w-6 h-6 mt-1 flex-shrink-0" />
                     <div>
                       <p className="text-white dark:text-white text-base font-medium leading-relaxed">
-                        Brand-aligned web redesign reflecting new ZiroDelta identity across all properties.
+                        Brand-aligned web redesign reflecting new Zirodelta identity across all properties.
                       </p>
                     </div>
                   </div>
@@ -232,7 +232,7 @@ export default function RoadmapPage() {
                     <img src="/star-green.svg" alt="" className="w-6 h-6 mt-1 flex-shrink-0" />
                     <div>
                       <p className="text-white dark:text-white text-base font-medium leading-relaxed">
-                        ZiroDelta Protocol architecture finalization for PFRT/NFRT conditional tokens.
+                        Zirodelta Protocol architecture finalization for PFRT/NFRT conditional tokens.
                       </p>
                     </div>
                   </div>

@@ -110,7 +110,7 @@ export default function ManifestoPage() {
                   <span className="font-light">Integrity</span>.
                 </p>
                 <p className="text-lg sm:text-xl md:text-2xl font-accent font-medium text-white dark:text-brand-emerald px-2 sm:px-4 lg:px-8 tracking-wide">
-                  Welcome to <span className="font-bold">ZiroDelta</span>.
+                  Welcome to <span className="font-bold">Zirodelta</span>.
                 </p>
               </div>
             </motion.div>
@@ -126,13 +126,13 @@ export default function ManifestoPage() {
               {isDark ? (
                 <img
                   src="/flower-green.svg"
-                  alt="ZiroDelta Community"
+                  alt="Zirodelta Community"
                   className="w-28 sm:w-32 md:w-36 h-auto mx-auto"
                 />
               ) : (
                 <img
                   src="/flower-white.svg"
-                  alt="ZiroDelta Community"
+                  alt="Zirodelta Community"
                   className="w-28 sm:w-32 md:w-36 h-auto mx-auto"
                 />
               )}

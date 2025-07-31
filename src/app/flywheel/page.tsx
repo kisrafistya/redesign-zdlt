@@ -257,7 +257,7 @@ export default function FlywheelPage() {
           </h2>
 
           <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-12 max-w-3xl mx-auto font-medium">
-            This self-perpetuating loop ensures that as ZiroDelta grows, the value returned to our community and token
+            This self-perpetuating loop ensures that as Zirodelta grows, the value returned to our community and token
             holders grows with it. Participation doesn't just grant access; it fuels the entire engine.
           </p>
 
