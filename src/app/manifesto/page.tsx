@@ -60,8 +60,8 @@ export default function ManifestoPage() {
                 We reject <span className="font-medium">idle capital</span> and{' '}
                 <span className="font-medium">opaque custody</span>.<br />
                 We harness{' '}
-                <span className="font-semibold text-white/90 dark:text-slate-800">funding-rate turbulence</span>—<br />
-                the <em className="font-medium">heartbeat of perpetual futures</em>—<br />
+                <span className="font-semibold text-white/90 dark:text-slate-800">funding-rate turbulence</span>,<br />
+                the <em className="font-medium">heartbeat of perpetual futures</em>,<br />
                 and convert it into <span className="font-semibold">communal prosperity</span>.
               </p>
 
@@ -87,7 +87,7 @@ export default function ManifestoPage() {
               <p className="text-base sm:text-lg md:text-xl font-sans text-white dark:text-slate-700 leading-relaxed sm:leading-loose px-2 sm:px-4 lg:px-8">
                 We reward <span className="font-semibold">stake</span>, not <em>status</em>;<br />
                 <span className="font-semibold">contribution</span>, not <em>connections</em>.<br />
-                <span className="font-medium">Abundance scales</span> with participation—
+                <span className="font-medium">Abundance scales</span> with participation,
                 <br />
                 <em>tier by tier</em>, <em>block by block</em>.
               </p>
