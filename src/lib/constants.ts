@@ -90,3 +90,124 @@ export const PERFORMANCE_TARGETS = {
     annual: '~500%',
   },
 } as const
+
+// Roadmap Data
+export const ROADMAP_DATA = {
+  '2025': {
+    Q3: [
+      {
+        title: 'Full Brand-Aligned Web Redesign',
+        description:
+          'Launch the complete redesign reflecting the new ZiroDelta brand identity across all web properties.',
+        status: 'in-progress',
+      },
+      {
+        title: 'Broker Partnership Integration',
+        description: 'Integrate with tier-1 perpetual exchanges/brokers to secure low-latency order execution.',
+        status: 'planned',
+      },
+      {
+        title: 'Infrastructure Scale-Up (1k Users)',
+        description:
+          'Upgrade backend architecture to handle 1 000 concurrent bot users; migrate to institutional-grade infra.',
+        status: 'planned',
+      },
+      {
+        title: 'Public Beta (Open Enrollment)',
+        description: 'Open beta to the public, gathering performance & UX feedback while monitoring on-chain metrics.',
+        status: 'planned',
+      },
+      {
+        title: '10-Bot Redundancy Rollout',
+        description: 'Deploy 10 independent strategy replicas as hot-swap backups for zero-downtime trading.',
+        status: 'planned',
+      },
+      {
+        title: 'Referral Programme v1',
+        description: 'Introduce tier-weighted referral links with on-chain attribution & rewards.',
+        status: 'planned',
+      },
+      {
+        title: 'PnL Flex Cards & Leaderboard',
+        description: 'Allow users to generate shareable performance cards and view global leaderboards.',
+        status: 'planned',
+      },
+      {
+        title: 'Merch Flywheel Launch',
+        description:
+          'Kick off the premium merchandise store with ZDLT-exclusive items to fuel community engagement and brand visibility.',
+        status: 'planned',
+      },
+      {
+        title: 'Security & Performance Stress-Test',
+        description: 'Run external penetration tests and load-test the trading engine under peak conditions.',
+        status: 'planned',
+      },
+    ],
+    Q4: [
+      {
+        title: 'ZiroDelta Protocol – Architecture Draft',
+        description: 'Finalize smart-contract architecture for Conditional Funding Rate Tokens (PFRT/NFRT).',
+        status: 'planned',
+      },
+      {
+        title: 'Oracle Framework PoC',
+        description: 'Implement multi-source oracle prototype feeding funding-rate data to devnet.',
+        status: 'planned',
+      },
+      {
+        title: 'PFRT/NFRT Devnet Deployment',
+        description: 'Deploy first iteration of PFRT/NFRT contracts to Solana devnet with basic mint/redeem flows.',
+        status: 'planned',
+      },
+      {
+        title: 'Protocol Security Audit',
+        description:
+          'Commission third-party audit focusing on conditional token logic & oracle manipulation resistance.',
+        status: 'planned',
+      },
+      {
+        title: 'Mainnet Readiness & Liquidity Plan',
+        description: 'Design liquidity-mining & incentive programme for mainnet launch in 2026.',
+        status: 'planned',
+      },
+    ],
+  },
+  '2026': {
+    Q1: [
+      {
+        title: 'Mainnet Launch – PFRT/NFRT',
+        description: 'Deploy audited contracts to Solana mainnet with liquidity incentives and dashboard analytics.',
+        status: 'planned',
+      },
+      {
+        title: 'Merch Flywheel Expansion',
+        description:
+          'Iterate on merch collections, introduce limited drops and integrate on-chain rewards sourced from merch revenue.',
+        status: 'planned',
+      },
+      {
+        title: 'Mass-Market Marketing Campaign',
+        description: 'Execute influencer & content strategy to onboard the next 10 000 users.',
+        status: 'planned',
+      },
+    ],
+    Q2: [
+      {
+        title: 'Advanced Analytics & Mobile App',
+        description: 'Ship cross-platform mobile app and granular funding-rate analytics dashboard.',
+        status: 'planned',
+      },
+      {
+        title: 'Multi-Chain Expansion',
+        description: 'Evaluate and integrate additional high-performance chains for cross-chain PFRT/NFRT.',
+        status: 'planned',
+      },
+      {
+        title: 'Institutional Onboarding',
+        description: 'Partner with funds & exchanges to provide white-label access to ZiroDelta strategies.',
+        status: 'planned',
+      },
+    ],
+  },
+} as const
