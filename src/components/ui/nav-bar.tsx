@@ -77,7 +77,7 @@ export function NavBar() {
                       'text-sm transition-colors duration-300 py-1 px-2 rounded-md',
                       isActive
                         ? 'text-brand-emerald dark:text-white font-semibold drop-shadow-sm'
-                        : 'text-foreground/80 dark:text-brand-pastel/80 hover:text-brand-emerald dark:hover:text-white',
+                        : 'text-foreground/80 dark:text-brand-pastel hover:text-brand-emerald dark:hover:text-white',
                     )}
                   >
                     {link.label}
