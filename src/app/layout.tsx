@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: 'Zirodelta',
     images: [
       {
-        url: '/zirodelta-og.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Zirodelta - Conditional Finance Revolution',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Zirodelta - The Future of Conditional Finance',
     description: 'Revolutionary DeFi protocol for everyone. Exclusive trading bot for the elite.',
-    images: ['/zirodelta-og.jpg'],
+    images: ['/og-image.png'],
   },
   robots: {
     index: true,
